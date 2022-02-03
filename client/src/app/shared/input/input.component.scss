@@ -1,0 +1,36 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  max-width: 650px;
+  position: relative;
+  width: 100%;
+  font-family: var(--font-body);
+}
+
+input,
+textarea {
+  border: 1px solid var(--color-grey-medium);
+  border-radius: 5px;
+  outline: none;
+  padding: 0.5rem 1rem;
+
+  &:focus {
+    border-color: var(--color-secondary);
+  }
+}
+
+.error {
+  position: absolute;
+  bottom: -25px;
+  left: 0;
+  color: var(--color-error);
+
+  &.right {
+    left: initial;
+    right: 0;
+  }
+}
+
+.errorInput {
+  border: 1px solid var(--color-error);
+}

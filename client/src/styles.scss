@@ -1,1 +1,137 @@
-/* You can add global styles to this file, and also import other style files */
+/** BASE **/
+:root {
+    font-size: 12px;
+    /** PRINCIPALES **/
+    --color-primary: #ffcd00;
+    --color-secondary: #1c939a;
+    --color-secondary-darker: #16767B;
+  
+    /** TEXTE **/
+    --color-text-dark: #55575e;
+    --color-text-light: #e8e6e6;
+  
+    /** GRIS **/
+    --color-grey-dark: #55575e;
+    --color-grey-medium: #e8e6e6;
+    --color-grey-light: #fafafa;
+  
+    /** AUTRES COULEURS **/
+    --color-success: #119b36;
+    --color-success-faded: rgba(17,155,54, 0.15);
+    --color-error: #e71616;
+    --color-error-faded: rgba(231, 22, 22, 0.15);
+    --color-progress: #3957c3;
+    --color-disabled: #BFBFBF;
+  
+    --white: #fff;
+    --black: #000;
+  
+    /** TYPOGRAPHIE **/
+    --font-display: "Roboto Slab", -apple-system, BlinkMacSystemFont, "Segoe UI",
+      Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+      "Segoe UI Symbol";
+    --font-body: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI",
+      Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+      "Segoe UI Symbol";
+  
+    /** BREAKPOINTS **/
+    --width-s: 1080px;
+    --width-m: 1280px;
+    --width-l: 1920px;
+  
+    --bp-xl: 87.5em;
+    --bp-l: 68.75em;
+    --bp-m: 56.25em;
+    --bp-s: 600px;
+    --bp-xs: 450px;
+    --bp-xxs: 18.75em;
+  
+    /** SPACING **/
+    --spacing-s: 0.5rem;
+    --spacing-m: 1.5rem;
+    --spacing-l: 3rem;
+  }
+  
+  
+  * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    line-height: 1.6;
+    vertical-align: baseline;
+  }
+  
+  // Adaptation de la police
+  @media (min-width: 600px) {
+    :root {
+      font-size: 12px;
+    }
+  }
+  
+  @media (min-width: 1080px) {
+    :root {
+      font-size: 1rem;
+    }
+  }
+  
+  body {
+    background-color: var(--white);
+    color: var(--color-text-dark);
+    //   font-family: $font-body;
+    line-height: 1.5;
+  }
+  
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: 26px;
+  }
+  
+  @media (min-width: var(--bp-m)) {
+    h1 {
+      font-size: 32px;
+      font-weight: 600;
+    }
+  }
+  
+  @media (min-width: var(--bp-xl)) {
+    h1 {
+      font-size: 36px;
+    }
+  }
+  
+  a {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+  }
+  
+  ul {
+    padding-left: 1.1rem;
+  }
+  
+  li {
+    max-width: 70ch;
+  }
+  
+  img {
+    max-width: 100%;
+    display: block;
+    object-fit: cover;
+  }
+  
+  .flex {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+  
+  .visibility-hidden {
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+  

@@ -2,14 +2,14 @@ import { Request, Response, NextFunction } from 'express';
 import Joi, { ObjectSchema } from 'joi';
 
 // rules
-const title = Joi.string().max(150).required().messages({
-  'string.max': 'title should be less than 150 characters',
-  'string.empty': 'title is a required field',
-  'any.required': 'title is a required field'
+const name = Joi.string().max(150).required().messages({
+  'string.max': 'Le nom du job ne doit pas dépasser 150 caractères',
+  'string.empty': 'Le nom du job est requis',
+  'any.required': 'Le nom du job est requis'
 });
 const urls = Joi.string().required().messages({
-  'string.empty': 'url is a required field',
-  'any.required': 'url is a required field'
+  'string.empty': 'Vous devez entrer au moins une url',
+  'any.required': 'Le champs url est requis'
 });
 
 interface IError {
@@ -20,7 +20,7 @@ interface IError {
 export default {
   schemas: {
     jobSchema: Joi.object().keys({
-      title,
+      name,
       urls
     })
   },

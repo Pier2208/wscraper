@@ -8,7 +8,7 @@ interface Url {
 }
 
 export interface IJob extends Document {
-  title: string;
+  name: string;
   status: string;
   urls: Url[];
   count: Number;
@@ -16,7 +16,7 @@ export interface IJob extends Document {
 
 const JobSchema: Schema<IJob> = new Schema(
   {
-    title: {
+    name: {
       type: String,
       trim: true,
       required: true

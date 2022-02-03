@@ -10,7 +10,7 @@ const { validateBody, schemas } = joi;
 
 //@ POST api/jobs
 //@ Desc Add a new job
-router.post('/', validateBody(schemas.jobSchema), jobController.createJob);
+router.post('/', jobController.createJob);
 
 //@ DELETE api/jobs/:jobId
 //@ Desc Delete a job

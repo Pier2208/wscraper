@@ -1,0 +1,26 @@
+<label *ngIf="label">{{ label }}</label>
+
+<!-- textarea -->
+<textarea
+  *ngIf="variant === 'textarea'"
+  [formControl]="control"
+  [placeholder]="placeholder"
+  [class.errorInput]="!control.valid && control.touched && control.dirty"
+  rows="8"
+></textarea>
+
+<!-- standard input -->
+<input
+  *ngIf="variant === 'input'"
+  [formControl]="control"
+  [placeholder]="placeholder"
+  [class.errorInput]="!control.valid && control.touched && control.dirty"
+/>
+
+<!-- MESSAGES ERREUR  -->
+<small
+  *ngIf="control.errors?.required && control.touched && control.dirty"
+  class="error"
+>
+  Le champs est requis
+</small>
