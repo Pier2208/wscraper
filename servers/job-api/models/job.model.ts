@@ -32,7 +32,7 @@ const JobSchema: Schema<IJob> = new Schema(
       required: true
     }
   },
-  { timestamps: true }
+  { timestamps: { createdAt: true, updatedAt: false } }
 );
 
 export const Job: Model<IJob> = model('Job', JobSchema);
