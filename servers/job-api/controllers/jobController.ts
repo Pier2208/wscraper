@@ -9,6 +9,9 @@ interface Url {
 }
 
 export default {
+  /**
+   * Créer un nouveau job
+   */
   createJob: async (req: Request, res: Response, next: NextFunction) => {
     try {
       let { title, urls } = req.body;
@@ -25,15 +28,18 @@ export default {
       next(err);
     }
   },
+  /**
+   * Supprimer un job par Id
+   */
   deleteJob: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      // string to ObjectId
-      const id = new mongoose.Types.ObjectId(req.params.jobId);
+      const id = new mongoose.Types.ObjectId(req.params.jobId); // string to ObjectId
 
       const result = await Job.deleteOne({ _id: id });
 
       if (result) res.status(200).json({ success: true });
       else res.status(404).json({ success: 'Document not found' });
+      
     } catch (err) {
       next(err);
     }
