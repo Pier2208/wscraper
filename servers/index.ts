@@ -1,4 +1,9 @@
 import express, { ErrorRequestHandler, NextFunction, Request, Response } from 'express';
+import jobRouter from './job-api/routes/jobRoutes'
+import db from './db/mongoose';
+
+// connection à la DB
+db.connect();
 
 /****************/
 /*** JOB API ***/
@@ -17,7 +22,8 @@ jobAPI.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 // routes
-jobAPI.use((err: ErrorRequestHandler, req: Request, res: Response, next: NextFunction) => res.status(500).json(err));
+jobAPI.use('/api/jobs', jobRouter);
+jobAPI.use((err: ErrorRequestHandler, req: Request, res: Response, next: NextFunction) => res.status(400).json(err));
 
 // server listening...
 jobAPI.listen(3001, () => {
@@ -42,7 +48,7 @@ validator.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 // routes
-validator.use((err: ErrorRequestHandler, req: Request, res: Response, next: NextFunction) => res.status(500).json(err));
+validator.use((err: ErrorRequestHandler, req: Request, res: Response, next: NextFunction) => res.status(400).json(err));
 
 // server listening...
 validator.listen(3002, () => {
