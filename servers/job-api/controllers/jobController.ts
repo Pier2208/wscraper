@@ -39,7 +39,16 @@ export default {
 
       if (result) res.status(200).json({ success: true });
       else res.status(404).json({ success: 'Document not found' });
-      
+    } catch (err) {
+      next(err);
+    }
+  },
+
+  /**
+   * Éditer le nom d'un job
+   */
+  editJobName: async (req: Request, res: Response, next: NextFunction) => {
+    try {
     } catch (err) {
       next(err);
     }

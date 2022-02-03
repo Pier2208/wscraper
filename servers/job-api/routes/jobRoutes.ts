@@ -12,7 +12,7 @@ const { validateBody, schemas } = joi;
 //@ Desc Add a new job
 router.post('/', validateBody(schemas.jobSchema), jobController.createJob);
 
-//@ DELETE api/jobs
+//@ DELETE api/jobs/:jobId
 //@ Desc Delete a job
 router.delete('/:jobId', jobController.deleteJob);
 
