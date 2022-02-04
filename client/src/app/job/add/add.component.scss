@@ -6,3 +6,17 @@ h1 {
   margin-bottom: var(--spacing-m);
 }
 
+.back {
+  align-items: center;
+  display: flex;
+  margin: var(--spacing-l) 0;
+  text-decoration: underline;
+
+  & svg {
+    margin-right: var(--spacing-m);
+  }
+
+  & span {
+    cursor: pointer;
+  }
+}
