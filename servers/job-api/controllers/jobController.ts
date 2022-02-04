@@ -38,7 +38,7 @@ export default {
       const result = await Job.deleteOne({ _id: id });
 
       if (result) res.status(200).json({ success: true });
-      else res.status(404).json({ success: 'Document not found' });
+      else res.status(404).json({ success: false });
     } catch (err) {
       next(err);
     }
@@ -48,10 +48,20 @@ export default {
    */
   getJobs: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const jobs = await Job.find({});
-      res.status(200).json(jobs);
+      if (req.query.page && req.query.size) {
+        const page = +req.query.page;
+        const size = +req.query.size;
+
+        const jobs = await Job.find()
+          .skip(size * (page - 1))
+          .limit(size);
+
+        const count = await Job.count()
+
+        return res.status(200).json({ count, jobs });
+      }
     } catch (err) {
-      next(err)
+      next(err);
     }
   }
 };
