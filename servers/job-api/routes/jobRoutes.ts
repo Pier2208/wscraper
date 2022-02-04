@@ -10,10 +10,14 @@ const { validateBody, schemas } = joi;
 
 //@ POST api/jobs
 //@ Desc Add a new job
-router.post('/', jobController.createJob);
+router.post('/', validateBody(schemas.jobSchema), jobController.createJob);
 
 //@ DELETE api/jobs/:jobId
 //@ Desc Delete a job
 router.delete('/:jobId', jobController.deleteJob);
+
+//@ GET api/jobs/
+//@ Desc Get all jobs
+router.get('/', jobController.getJobs);
 
 export default router;
