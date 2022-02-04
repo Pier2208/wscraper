@@ -14,7 +14,7 @@ export default {
    */
   createJob: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      let { name, urls } = req.body;
+      const { name, urls } = req.body;
       const newUrls = urls.split(',').reduce((acc: Url[], url: string) => {
         acc.push({ url });
         return acc;
@@ -41,6 +41,17 @@ export default {
       else res.status(404).json({ success: 'Document not found' });
     } catch (err) {
       next(err);
+    }
+  },
+  /**
+   * Récupérer tous les jobs
+   */
+  getJobs: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const jobs = await Job.find({});
+      res.status(200).json(jobs);
+    } catch (err) {
+      next(err)
     }
   }
 };
