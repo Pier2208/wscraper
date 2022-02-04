@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { JobService } from '../services/job.service';
-import { Job } from '../models/job';
+import { IJob } from '../models/job';
 
 @Component({
   selector: 'app-home',
@@ -8,7 +8,10 @@ import { Job } from '../models/job';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  jobs: Job[] = [];
+  jobs: IJob[] = [];
+  totalJobs?: number;
+  jobsPerPage: number = 5;
+  currentPage: number = 1;
   loadingJobs: boolean = false;
   constructor(private job: JobService) {}
 
@@ -18,9 +21,9 @@ export class HomeComponent implements OnInit {
 
   private getJobs() {
     this.loadingJobs = true;
-    this.job.getJobs().subscribe((jobs) => {
-      console.log('jobs', jobs);
-      this.jobs = jobs;
+    this.job.getJobs(this.currentPage, this.jobsPerPage).subscribe((data) => {
+      this.jobs = data.jobs;
+      this.totalJobs = data.count
       this.loadingJobs = false;
     });
   }

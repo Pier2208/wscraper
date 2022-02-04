@@ -1,14 +1,19 @@
-interface Url {
+interface IUrl {
   _id: string;
   url: string;
   status: string;
 }
 
-export interface Job {
+export interface IJob {
   _id: string;
   name: string;
   status: string;
   count: number;
-  urls: Url[];
+  urls: IUrl[];
   createdAt: string;
+}
+
+export interface IJobs {
+    count: number;
+    jobs: IJob[];
 }
