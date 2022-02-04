@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { JobService } from 'src/app/services/job.service';
 
 interface IJobForm {
@@ -13,7 +14,7 @@ interface IJobForm {
   styleUrls: ['./create-job-form.component.scss'],
 })
 export class CreateJobFormComponent {
-  constructor(private job: JobService) {}
+  constructor(private job: JobService, private router: Router) {}
 
   name = new FormControl('', [Validators.required]);
   urls = new FormControl('', [Validators.required]);
@@ -24,8 +25,9 @@ export class CreateJobFormComponent {
   });
 
   onSubmit(value: IJobForm) {
-    this.job.createJob(value)
+    this.job.createJob(value);
     this.jobForm.reset();
     this.jobForm.markAsPristine();
+    this.router.navigateByUrl('/');
   }
 }
