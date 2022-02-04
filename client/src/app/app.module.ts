@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { JobModule } from './job/job.module';
 import { NavComponent } from './nav/nav.component';
 import { HomeComponent } from './home/home.component';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { HomeComponent } from './home/home.component';
     BrowserModule,
     AppRoutingModule,
     JobModule,
+    SharedModule,
     AngularSvgIconModule.forRoot(),
     HttpClientModule
   ],

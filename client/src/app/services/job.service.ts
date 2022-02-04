@@ -1,25 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
-interface Url {
-  _id: string;
-  url: string;
-  status: string;
-}
+import { Job } from '../models/job';
 
 interface IJobForm {
   name: string;
   urls: string;
 }
 
-interface Job {
-  _id: string;
-  name: string;
-  status: string;
-  count: number;
-  urls: Url[];
-  createdAt: string;
-}
 
 @Injectable({
   providedIn: 'root',
@@ -30,10 +17,19 @@ export class JobService {
   constructor(private http: HttpClient) {}
 
   createJob(job: IJobForm) {
-    return this.http.post<Job>(`${this.jobApi}/jobs`, job);
+    return this.http.post<Job>(`${this.jobApi}/jobs`, job).subscribe({
+      next: (data) => console.log('data', data),
+      error: (err) => console.error('erreur', err),
+    });
   }
 
   getJobs() {
     return this.http.get<Job[]>(`${this.jobApi}/jobs`);
+  }
+
+  deleteJob(jobId: string) {
+    return this.http.delete<{ success: boolean }>(
+      `${this.jobApi}/jobs/${jobId}`
+    );
   }
 }

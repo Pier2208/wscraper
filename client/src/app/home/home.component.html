@@ -1,1 +1,10 @@
-<p>home works!</p>
+<h1>home works!</h1>
+<app-loader *ngIf="loadingJobs"></app-loader>
+
+<section>
+  <article *ngFor="let job of jobs">
+    <span>ID: {{ job._id }}</span>
+    <span>Name: {{ job.name }}</span>
+    <button (click)="deleteJob(job._id)">DELETE JOB</button>
+  </article>
+</section>

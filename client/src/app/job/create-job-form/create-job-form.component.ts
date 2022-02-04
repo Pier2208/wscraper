@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { JobService } from 'src/app/services/job.service';
 
 interface IJobForm {
-  title: string;
+  name: string;
   urls: string;
 }
 
@@ -24,10 +24,7 @@ export class CreateJobFormComponent {
   });
 
   onSubmit(value: IJobForm) {
-    this.job.createJob(value).subscribe({
-      next: (data) => console.log('data', data),
-      error: (err) => console.error('erreur', err)
-    })
+    this.job.createJob(value)
     this.jobForm.reset();
     this.jobForm.markAsPristine();
   }

@@ -5,11 +5,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ButtonComponent } from './button/button.component';
 import { LoaderComponent } from './loader/loader.component';
 
+
 @NgModule({
   declarations: [
     InputComponent,
     ButtonComponent,
-    LoaderComponent,
+    LoaderComponent
   ],
   imports: [
     CommonModule,

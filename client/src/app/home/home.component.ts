@@ -1,20 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { JobService } from '../services/job.service';
-
-interface Url {
-  _id: string;
-  url: string;
-  status: string;
-}
-
-interface Job {
-  _id: string;
-  name: string;
-  status: string;
-  count: number;
-  urls: Url[];
-  createdAt: string;
-}
+import { Job } from '../models/job';
 
 @Component({
   selector: 'app-home',
@@ -23,6 +9,7 @@ interface Job {
 })
 export class HomeComponent implements OnInit {
   jobs: Job[] = [];
+  loadingJobs: boolean = false;
   constructor(private job: JobService) {}
 
   ngOnInit(): void {
@@ -30,6 +17,20 @@ export class HomeComponent implements OnInit {
   }
 
   private getJobs() {
-    this.job.getJobs().subscribe((jobs) => console.log(jobs));
+    this.loadingJobs = true;
+    this.job.getJobs().subscribe((jobs) => {
+      console.log('jobs', jobs);
+      this.jobs = jobs;
+      this.loadingJobs = false;
+    });
+  }
+
+  deleteJob(jobId: string) {
+    this.job.deleteJob(jobId).subscribe((res) => {
+      if (res.success) {
+        const updatedJobs = this.jobs.filter((job) => job._id !== jobId);
+        this.jobs = updatedJobs;
+      }
+    });
   }
 }
