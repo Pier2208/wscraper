@@ -8,13 +8,13 @@ interface Url {
 }
 
 interface IJobForm {
-  title: string;
+  name: string;
   urls: string;
 }
 
-interface JobResponse {
+interface Job {
   _id: string;
-  title: string;
+  name: string;
   status: string;
   count: number;
   urls: Url[];
@@ -30,7 +30,10 @@ export class JobService {
   constructor(private http: HttpClient) {}
 
   createJob(job: IJobForm) {
-    console.log('job', job)
-    return this.http.post<JobResponse>(`${this.jobApi}/jobs`, job);
+    return this.http.post<Job>(`${this.jobApi}/jobs`, job);
+  }
+
+  getJobs() {
+    return this.http.get<Job[]>(`${this.jobApi}/jobs`);
   }
 }
