@@ -21,7 +21,7 @@ export default {
       }, []);
 
       // save new job in the database
-      const job = await new Job({ name, urls: newUrls, count: newUrls.length }).save();
+      const job = await new Job({ name, count: newUrls.length, urls: newUrls }).save();
 
       res.status(200).json(job);
     } catch (err) {
@@ -56,7 +56,7 @@ export default {
           .skip(size * (page - 1))
           .limit(size);
 
-        const count = await Job.count()
+        const count = await Job.count();
 
         return res.status(200).json({ count, jobs });
       }
