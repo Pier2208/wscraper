@@ -6,6 +6,11 @@
   <article *ngFor="let job of jobs">
     <span>ID: {{ job._id }}</span>
     <span>Name: {{ job.name }}</span>
+    <ul>
+      <li *ngFor="let url of job.urls">
+        {{ url.url }}
+      </li>
+    </ul>
     <button (click)="deleteJob(job._id)">DELETE JOB</button>
   </article>
 </section>
