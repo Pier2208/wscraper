@@ -28,7 +28,7 @@ const JobSchema: Schema<IJob> = new Schema(
     },
     count: Number,
     urls: {
-      type: [{ url: String, status: { type: String, default: 'QUEUED' } }],
+      type: [{ url: String, status: { type: String, default: 'QUEUED' }, statusCode: Number, responseTime: Number }],
       required: true
     }
   },
