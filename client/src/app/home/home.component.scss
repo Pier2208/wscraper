@@ -1,0 +1,11 @@
+.jobs {
+  .job {
+    align-items: center;
+    background-color: var(--color-grey-light);
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: var(--spacing-m);
+    padding: var(--spacing-s) var(--spacing-m);
+  }
+}

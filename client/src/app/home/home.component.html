@@ -1,16 +1,14 @@
-<h1>home works!</h1>
-<h2>Total Jobs: {{ totalJobs }}</h2>
+<h1>Total Jobs: {{ totalJobs }}</h1>
 <app-loader *ngIf="loadingJobs"></app-loader>
 
-<section>
-  <article *ngFor="let job of jobs">
-    <span>ID: {{ job._id }}</span>
-    <span>Name: {{ job.name }}</span>
-    <ul>
-      <li *ngFor="let url of job.urls">
-        {{ url.url }}
-      </li>
-    </ul>
-    <button (click)="deleteJob(job._id)">DELETE JOB</button>
+<section class="jobs">
+  <article class="job" *ngFor="let job of jobs">
+    <div class="job__name">
+      <h2>{{ job.name }}</h2>
+      <small>{{ job.createdAt }}</small>
+    </div>
+    <svg-icon src="assets/svg/chevron.svg"></svg-icon>
+    <!-- <div>Status: {{ job.status }}</div>
+    <button (click)="deleteJob(job._id)">DELETE JOB</button> -->
   </article>
 </section>

@@ -18,8 +18,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(private job: JobService) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
     this.job.getJobs(this.currentPage, this.jobsPerPage);
+    this.job.getRealTimeUpdate()
     this.jobsSubscription = this.job
       .getJobUpdateEvent()
       .subscribe((data: IJobs) => {
