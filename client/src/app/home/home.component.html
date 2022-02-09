@@ -2,13 +2,24 @@
 <app-loader *ngIf="loadingJobs"></app-loader>
 
 <section class="jobs">
+  <!-- JOB ITEM -->
   <article class="job" *ngFor="let job of jobs">
+    <!-- JOB NAME AND JOB CREATION DATE -->
     <div class="job__name">
-      <h2>{{ job.name }}</h2>
-      <small>{{ job.createdAt }}</small>
+      <h2>{{ job.name | uppercase }}</h2>
+      <small
+        >Job créé le {{ job.createdAt | date: "MMM d, y, h:mm:ss a" }}</small
+      >
     </div>
-    <svg-icon src="assets/svg/chevron.svg"></svg-icon>
-    <!-- <div>Status: {{ job.status }}</div>
-    <button (click)="deleteJob(job._id)">DELETE JOB</button> -->
+    <!-- JOB PROCESSING STATUS -->
+    <div class="job__info">
+      <span><span>Status:</span> 
+        <app-loader *ngIf="job.status === 'IN PROGRESS'"></app-loader>
+        <svg-icon *ngIf="job.status === 'QUEUED'" src="assets/svg/queued.svg"></svg-icon>
+        <svg-icon *ngIf="job.status === 'DONE'" src="assets/svg/success.svg"></svg-icon>
+      </span>
+      <svg-icon src="assets/svg/chevron.svg"></svg-icon>
+    </div>
+    <!-- <button (click)="deleteJob(job._id)">DELETE JOB</button> -->
   </article>
 </section>

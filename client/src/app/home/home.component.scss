@@ -7,5 +7,20 @@
     justify-content: space-between;
     margin-top: var(--spacing-m);
     padding: var(--spacing-s) var(--spacing-m);
+
+    &__info {
+        align-items: center;
+        display: flex;
+  
+        & > span {
+            margin-right: var(--spacing-l);
+            display: flex;
+            align-items: center;
+
+            & > * {
+                margin-right: var(--spacing-s);
+            }
+        }
+    }
   }
 }
