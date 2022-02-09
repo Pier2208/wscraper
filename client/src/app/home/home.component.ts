@@ -9,7 +9,7 @@ import { IJobs, IJob } from '../models/job';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  private jobsPerPage: number = 5;
+  private jobsPerPage: number = 10;
   private currentPage: number = 1;
   private jobsSubscription?: Subscription;
   jobs: IJob[] = [];

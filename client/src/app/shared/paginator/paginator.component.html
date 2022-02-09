@@ -1,0 +1,5 @@
+<div class="paginator">
+  <button class="paginator__btn">Previous</button>
+  <button [class.active]="currentPage === page" *ngFor="let page of pages" class="paginator__btn">{{ page }}</button>
+  <button class="paginator__btn">Next</button>
+</div>

@@ -13,13 +13,23 @@
     </div>
     <!-- JOB PROCESSING STATUS -->
     <div class="job__info">
-      <span><span>Status:</span> 
+      <span
+        ><span>Status:</span>
         <app-loader *ngIf="job.status === 'IN PROGRESS'"></app-loader>
-        <svg-icon *ngIf="job.status === 'QUEUED'" src="assets/svg/queued.svg"></svg-icon>
-        <svg-icon *ngIf="job.status === 'DONE'" src="assets/svg/success.svg"></svg-icon>
+        <svg-icon
+          *ngIf="job.status === 'QUEUED'"
+          src="assets/svg/queued.svg"
+        ></svg-icon>
+        <svg-icon
+          *ngIf="job.status === 'DONE'"
+          src="assets/svg/success.svg"
+        ></svg-icon>
       </span>
       <svg-icon src="assets/svg/chevron.svg"></svg-icon>
     </div>
     <!-- <button (click)="deleteJob(job._id)">DELETE JOB</button> -->
   </article>
+
+  <!-- PAGINATION -->
+  <app-paginator [totalPages]=6></app-paginator>
 </section>

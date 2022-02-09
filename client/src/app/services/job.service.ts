@@ -53,7 +53,7 @@ export class JobService {
     return this.http
       .post<IJob>(`${this.jobApi}/jobs`, job)
       .subscribe((data) => {
-        this.jobs = [...this.jobs, data];
+        this.jobs = [data, ...this.jobs];
         this.totalJobs++;
         this.updatedJobs.next({ count: this.totalJobs, jobs: this.jobs });
       });

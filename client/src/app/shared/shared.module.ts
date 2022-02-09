@@ -4,13 +4,15 @@ import { InputComponent } from './input/input.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ButtonComponent } from './button/button.component';
 import { LoaderComponent } from './loader/loader.component';
+import { PaginatorComponent } from './paginator/paginator.component';
 
 
 @NgModule({
   declarations: [
     InputComponent,
     ButtonComponent,
-    LoaderComponent
+    LoaderComponent,
+    PaginatorComponent
   ],
   imports: [
     CommonModule,
@@ -19,7 +21,8 @@ import { LoaderComponent } from './loader/loader.component';
   exports: [
     InputComponent,
     ButtonComponent,
-    LoaderComponent
+    LoaderComponent,
+    PaginatorComponent
   ]
 })
 export class SharedModule { }
