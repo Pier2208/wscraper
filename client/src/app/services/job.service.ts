@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { IJobs, IJob } from '../models/job';
+import { Socket } from 'ngx-socket-io';
 
 interface IJobForm {
   name: string;
@@ -12,16 +13,29 @@ interface IJobForm {
   providedIn: 'root',
 })
 export class JobService {
+  changedDoc = this.socket.fromEvent<any>('updatedJob');
   private jobs: IJob[] = [];
   private updatedJobs = new Subject<IJobs>();
   private totalJobs: number = 0;
 
   private jobApi = 'http://localhost:3001/api';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private socket: Socket) {}
 
   getJobUpdateEvent() {
     return this.updatedJobs.asObservable();
+  }
+
+  getRealTimeUpdate() {
+    this.changedDoc.subscribe((doc) => {
+      console.log('doc', doc)
+      const jobIndex = this.jobs.findIndex((job) => job._id === doc._id);
+
+      if (jobIndex !== -1) {
+        this.jobs[jobIndex] = doc;
+        this.updatedJobs.next({ count: this.totalJobs, jobs: this.jobs });
+      }
+    });
   }
 
   getJobs(currentPage: number, jobsPerPage: number) {
