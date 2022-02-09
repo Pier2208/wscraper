@@ -1,5 +1,4 @@
 import fetch from 'node-fetch';
-import express from 'express';
 import { getDurationInMilliseconds } from '../utils/timer';
 import { Job } from '../job-api/models/job.model';
 
@@ -8,13 +7,6 @@ import { Job } from '../job-api/models/job.model';
 /****************/
 
 export default () => {
-  const validator = express();
-
-  // server listening...
-  validator.listen(3002, () => {
-    console.log('Validator is running on port 3002');
-  });
-
   async function fetchJobs() {
     // METTRE LES JOBS QUEUED --> IN PROGRESS
     await Job.updateMany({ status: 'QUEUED' }, { status: 'IN PROGRESS' });
@@ -61,7 +53,7 @@ export default () => {
     });
   }
 
-  setTimeout(() => setInterval(fetchJobs, 5000), 40000);
+  setInterval(fetchJobs, 5000);
 
   async function checkUrl(url: string) {
     const start = process.hrtime();
