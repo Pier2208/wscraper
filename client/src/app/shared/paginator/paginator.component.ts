@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { JobService } from 'src/app/services/job.service';
 
 @Component({
   selector: 'app-paginator',
@@ -12,13 +13,11 @@ export class PaginatorComponent implements OnInit {
   itemsPerPage: number = 5;
   currentPage: number = 1;
 
-  constructor() {}
+  constructor(private Job: JobService) {}
 
   ngOnInit(): void {
     this.pageNumber();
     this.createButtons();
-    console.log('this.currentPage', this.currentPage);
-    console.log('this.totalPages', this.totalPages);
   }
 
   pageNumber() {
@@ -36,10 +35,19 @@ export class PaginatorComponent implements OnInit {
   }
 
   nextPage() {
-    if (this.currentPage < this.totalPages) this.currentPage++;
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.Job.getJobs(this.currentPage, this.itemsPerPage);
+    }
   }
 
   previousPage() {
     if (this.currentPage > 1) this.currentPage--;
+    this.Job.getJobs(this.currentPage, this.itemsPerPage);
+  }
+
+  getCurrentPage(page: number) {
+    this.currentPage = page;
+    this.Job.getJobs(page, this.itemsPerPage);
   }
 }
