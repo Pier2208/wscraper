@@ -6,7 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./paginator.component.scss'],
 })
 export class PaginatorComponent implements OnInit {
-  @Input() totalItems?: number;
+  @Input() totalItems: number;
   totalPages: number;
   pages: number[];
   itemsPerPage: number = 5;
@@ -17,23 +17,29 @@ export class PaginatorComponent implements OnInit {
   ngOnInit(): void {
     this.pageNumber();
     this.createButtons();
+    console.log('this.currentPage', this.currentPage);
+    console.log('this.totalPages', this.totalPages);
   }
 
   pageNumber() {
-    if (this.totalItems)
-      this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
-      console.log('tot', this.totalPages)
+    this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
   }
 
   createButtons() {
-    if (this.totalPages) {
-      if (this.totalPages > 5) {
-        this.pages = [1, 2, 3, this.totalPages];
-      } else {
-        this.pages = Array(this.totalPages)
-          .fill(null)
-          .map((_, i) => i + 1);
-      }
+    if (this.totalPages > 5) {
+      this.pages = [1, 2, 3, this.totalPages];
+    } else {
+      this.pages = Array(this.totalPages)
+        .fill(null)
+        .map((_, i) => i + 1);
     }
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) this.currentPage++;
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) this.currentPage--;
   }
 }

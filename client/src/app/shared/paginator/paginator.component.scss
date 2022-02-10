@@ -25,6 +25,13 @@
       background-color: var(--color-secondary);
       color: var(--white);
     }
+
+    &:disabled {
+      cursor: not-allowed;
+      background-color: var(--color-disabled);
+      border: 1px solid var(--color-disabled);
+      color: var(--white);
+    }
   }
 
   &__spread {
