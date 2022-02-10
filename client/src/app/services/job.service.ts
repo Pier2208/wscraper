@@ -16,7 +16,7 @@ export class JobService {
   changedDoc = this.socket.fromEvent<any>('updatedJob');
   private jobs: IJob[] = [];
   private updatedJobs = new Subject<IJobs>();
-  private totalJobs: number = 0;
+  private totalJobs: number;
 
   private jobApi = 'http://localhost:3001/api';
 
@@ -28,7 +28,7 @@ export class JobService {
 
   getRealTimeUpdate() {
     this.changedDoc.subscribe((doc) => {
-      console.log('doc', doc)
+      console.log('doc', doc);
       const jobIndex = this.jobs.findIndex((job) => job._id === doc._id);
 
       if (jobIndex !== -1) {
@@ -54,7 +54,7 @@ export class JobService {
       .post<IJob>(`${this.jobApi}/jobs`, job)
       .subscribe((data) => {
         this.jobs = [data, ...this.jobs];
-        this.totalJobs++;
+        ++this.totalJobs;
         this.updatedJobs.next({ count: this.totalJobs, jobs: this.jobs });
       });
   }

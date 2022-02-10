@@ -1,5 +1,9 @@
 <div class="paginator">
-  <button class="paginator__btn">Previous</button>
-  <button [class.active]="currentPage === page" *ngFor="let page of pages" class="paginator__btn">{{ page }}</button>
+  <ng-container *ngFor="let page of pages; let i = index">
+    <span *ngIf="totalPages && totalPages > 5 && i === 3" class="paginator__spread">...</span>
+    <button [class.active]="currentPage === page" class="paginator__btn">
+      {{ page }}
+    </button>
+  </ng-container>
   <button class="paginator__btn">Next</button>
 </div>

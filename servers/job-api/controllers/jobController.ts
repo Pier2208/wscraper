@@ -53,6 +53,7 @@ export default {
         const size = +req.query.size;
 
         const jobs = await Job.find()
+          .sort({ createdAt: -1 })
           .skip(size * (page - 1))
           .limit(size);
 

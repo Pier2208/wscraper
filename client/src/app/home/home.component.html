@@ -31,5 +31,5 @@
   </article>
 
   <!-- PAGINATION -->
-  <app-paginator [totalPages]=6></app-paginator>
+  <app-paginator *ngIf="totalJobs" [totalItems]="totalJobs"></app-paginator>
 </section>
