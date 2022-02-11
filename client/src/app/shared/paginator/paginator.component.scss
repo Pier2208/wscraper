@@ -2,23 +2,28 @@
   align-items: center;
   display: flex;
   font-family: var(--font-body);
-  justify-content: flex-end;
+  justify-content: space-between;
   margin-top: var(--spacing-m);
   padding: var(--spacing-s) 0;
   width: 100%;
 
-  & > * {
+  &__nav > * {
     margin-left: var(--spacing-s);
   }
 
-  &__btn {
+  &__btn,
+  &__select {
     background-color: var(--white);
     border: 1px solid var(--color-grey-medium);
     border-radius: 10px;
     color: var(--color-secondary);
     cursor: pointer;
     font-size: 22px;
+    outline: none;
     padding: var(--spacing-s) var(--spacing-m);
+  }
+
+  &__btn {
     transition: background-color 200ms ease-in-out, color 250ms ease-in-out;
 
     &:hover {

@@ -1,26 +1,36 @@
 <div class="paginator">
-  <button
-    *ngIf="currentPage > 1"
-    (click)="previousPage()"
-    class="paginator__btn"
-  >
-    Previous
-  </button>
-  <ng-container *ngFor="let page of pages; let i = index">
-    <span
-      *ngIf="totalPages > 5 && i === 3"
-      class="paginator__spread"
-      >...</span
+  <select #perPageInput class="paginator__select" (change)="selectItemsPerPage(perPageInput.value)">
+    <option *ngFor="let n of [5, 10, 25]" [value]="n">
+      Jobs par page: {{ n }}
+    </option>
+  </select>
+  <div class="paginator__nav">
+    <button
+      *ngIf="currentPage > 1"
+      (click)="previousPage()"
+      class="paginator__btn"
     >
-    <button (click)="getCurrentPage(page)" [class.active]="currentPage === page" class="paginator__btn">
-      {{ page }}
+      Previous
     </button>
-  </ng-container>
-  <button
-    [disabled]="currentPage === totalPages"
-    (click)="nextPage()"
-    class="paginator__btn"
-  >
-    Next
-  </button>
+    <ng-container *ngFor="let page of pages; let i = index">
+      <span *ngIf="totalPages > 5 && i === 3" class="paginator__spread"
+        >...</span
+      >
+      <button
+        (click)="getCurrentPage(page)"
+        [class.active]="currentPage === page"
+        class="paginator__btn"
+      >
+        {{ page }}
+      </button>
+    </ng-container>
+    <button
+      *ngIf="totalPages !== 1"
+      [disabled]="currentPage === totalPages"
+      (click)="nextPage()"
+      class="paginator__btn"
+    >
+      Next
+    </button>
+  </div>
 </div>
