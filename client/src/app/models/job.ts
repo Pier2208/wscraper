@@ -11,6 +11,7 @@ export interface IJob {
   count: number;
   urls: IUrl[];
   createdAt: string;
+  updatedAt: string;
 }
 
 export interface IJobs {

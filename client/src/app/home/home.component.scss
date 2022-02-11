@@ -1,6 +1,5 @@
 .jobs {
   .job {
-    background-color: var(--color-grey-light);
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -11,9 +10,8 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background-color: var(--color-grey-dark);
+      background-color: #fbfbfb;
       padding: var(--spacing-s);
-      color: var(--white);
     }
 
     &__bottom {
@@ -23,6 +21,7 @@
       background-color: var(--white);
 
       svg {
+        cursor: pointer;
         transform: rotate(90deg);
       }
     }
@@ -30,9 +29,14 @@
     &__info {
         align-items: center;
         display: flex;
+        width: 500px;
+        justify-content: flex-end;
+
+        & > * {
+          margin-left: var(--spacing-s);
+        }
   
         & > span {
-            margin-right: var(--spacing-l);
             display: flex;
             align-items: center;
 
