@@ -1,12 +1,31 @@
 .jobs {
   .job {
-    align-items: center;
     background-color: var(--color-grey-light);
     border-radius: 10px;
     display: flex;
-    justify-content: space-between;
-    margin-top: var(--spacing-m);
-    padding: var(--spacing-s) var(--spacing-m);
+    flex-direction: column;
+    margin-top: var(--spacing-l);
+    box-shadow: 2px 2px 12px rgba(0,0,0,0.05);
+
+    &__top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: var(--color-grey-dark);
+      padding: var(--spacing-s);
+      color: var(--white);
+    }
+
+    &__bottom {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: var(--white);
+
+      svg {
+        transform: rotate(90deg);
+      }
+    }
 
     &__info {
         align-items: center;

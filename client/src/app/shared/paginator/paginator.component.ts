@@ -53,6 +53,7 @@ export class PaginatorComponent implements OnInit {
 
   selectItemsPerPage(n: string) {
     this.itemsPerPage = parseInt(n, 10);
+    this.currentPage = 1;
     this.Job.getJobs(this.currentPage, this.itemsPerPage);
     this.pageNumber();
     this.createButtons();
