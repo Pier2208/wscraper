@@ -52,7 +52,7 @@ export default {
         const page = +req.query.page;
         const size = +req.query.size;
 
-        const jobs = await Job.find()
+        const jobs = await Job.find({}, '_id name status createdAt updatedAt')
           .sort({ createdAt: -1 })
           .skip(size * (page - 1))
           .limit(size);
