@@ -5,6 +5,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ButtonComponent } from './button/button.component';
 import { LoaderComponent } from './loader/loader.component';
 import { PaginatorComponent } from './paginator/paginator.component';
+import { AccordionComponent } from './accordion/accordion.component';
+import { AngularSvgIconModule } from 'angular-svg-icon';
 
 
 @NgModule({
@@ -12,17 +14,20 @@ import { PaginatorComponent } from './paginator/paginator.component';
     InputComponent,
     ButtonComponent,
     LoaderComponent,
-    PaginatorComponent
+    PaginatorComponent,
+    AccordionComponent
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularSvgIconModule.forRoot()
   ],
   exports: [
     InputComponent,
     ButtonComponent,
     LoaderComponent,
-    PaginatorComponent
+    PaginatorComponent,
+    AccordionComponent
   ]
 })
 export class SharedModule { }

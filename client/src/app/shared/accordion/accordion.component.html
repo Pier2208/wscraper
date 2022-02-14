@@ -1,0 +1,36 @@
+<!-- JOB ITEM -->
+<article class="job" *ngFor="let job of data">
+    <div class="job__top">
+      <!-- JOB NAME AND JOB CREATION DATE -->
+      <div class="job__name">
+        <h2>{{ job.name | uppercase }}</h2>
+        <small
+          >Job créé le {{ job.createdAt | date: "MMM d, y, h:mm:ss a" }}</small
+        >
+      </div>
+      <!-- JOB PROCESSING STATUS -->
+      <div class="job__info">
+        <span>Status:</span>
+        <!-- STATUS: IN PROGRESS -->
+        <ng-container *ngIf="job.status === 'IN PROGRESS'">
+          <span><b>IN PROGRESS</b></span>
+          <app-loader></app-loader>
+        </ng-container>
+        <!-- STATUS: QUEUED -->
+        <ng-container *ngIf="job.status === 'QUEUED'">
+          <span><b>QUEUED</b></span>
+          <svg-icon src="assets/svg/queued.svg"></svg-icon>
+        </ng-container>
+        <!-- STATUS: DONE -->
+        <ng-container *ngIf="job.status === 'DONE'">
+          <span><b>COMPLETED</b></span>
+          <small>{{ job.updatedAt | date: "MMM d, y, h:mm:ss a" }}</small>
+          <svg-icon src="assets/svg/success.svg"></svg-icon>
+        </ng-container>
+      </div>
+    </div>
+    <div class="job__bottom">
+      <svg-icon src="assets/svg/chevron.svg"></svg-icon>
+    </div>
+    <!-- <button (click)="deleteJob(job._id)">DELETE JOB</button> -->
+  </article>

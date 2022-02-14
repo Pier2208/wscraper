@@ -1,0 +1,47 @@
+.job {
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--spacing-l);
+  box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.05);
+
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fbfbfb;
+    padding: var(--spacing-s);
+  }
+
+  &__bottom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--white);
+
+    svg {
+      cursor: pointer;
+      transform: rotate(90deg);
+    }
+  }
+
+  &__info {
+    align-items: center;
+    display: flex;
+    width: 500px;
+    justify-content: flex-end;
+
+    & > * {
+      margin-left: var(--spacing-s);
+    }
+
+    & > span {
+      display: flex;
+      align-items: center;
+
+      & > * {
+        margin-right: var(--spacing-s);
+      }
+    }
+  }
+}
