@@ -20,16 +20,23 @@ export class AccordionComponent implements AfterContentInit {
   ngAfterContentInit() {
     for (let panel of this.panels) {
       panel.toggle.subscribe((jobId) => {
-        this.job.getOpenedJob(jobId).subscribe((data) => {
-          this.togglePanel(panel, data.job.urls);
-        });
+        if (!panel.isOpen) {
+          this.job.getOpenedJob(jobId).subscribe((data) => {
+            this.togglePanel(panel);
+            this.fetchUrls(panel, data);
+          });
+        } else {
+          this.togglePanel(panel);
+        }
       });
     }
   }
 
-  togglePanel(panel: PanelComponent, data: any) {
-    console.log('panel', panel)
+  togglePanel(panel: PanelComponent) {
     panel.isOpen = !panel.isOpen;
-    panel.urls = data;
+  }
+
+  fetchUrls(panel: PanelComponent, data: any) {
+    panel.urls = data.job.urls;
   }
 }
