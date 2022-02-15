@@ -1,8 +1,8 @@
-:host {
+.panel {
   display: grid;
   column-gap: var(--spacing-m);
   grid-template-columns: 2fr 1fr 50px;
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-rows: 1fr 1fr fit-content;
 
   background-color: #fbfbfb;
   border-radius: 10px;
@@ -47,10 +47,16 @@
   cursor: pointer;
 }
 
+.panel__content {
+  grid-column: 1 / -1;
+  grid-row: 3;
+}
+
 
 // table
 table {
   max-width: 100%;
+  width: 100%;
   margin: var(--spacing-s) 0;
   font-family: var(--font-body);
 }

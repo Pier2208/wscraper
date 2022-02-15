@@ -21,18 +21,15 @@ export class AccordionComponent implements AfterContentInit {
     for (let panel of this.panels) {
       panel.toggle.subscribe((jobId) => {
         this.job.getOpenedJob(jobId).subscribe((data) => {
-          console.log('urls', data.job.urls);
-          this.openPanel(panel, data.job.urls);
+          this.togglePanel(panel, data.job.urls);
         });
       });
     }
   }
 
-  openPanel(panel: PanelComponent, data: any) {
-    for (let panel of this.panels) {
-      panel.isOpen = false;
-    }
-    panel.isOpen = true;
+  togglePanel(panel: PanelComponent, data: any) {
+    console.log('panel', panel)
+    panel.isOpen = !panel.isOpen;
     panel.urls = data;
   }
 }
