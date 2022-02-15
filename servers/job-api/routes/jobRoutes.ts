@@ -20,4 +20,8 @@ router.delete('/:jobId', jobController.deleteJob);
 //@ Desc Get jobs (defaut: 5 jobs per page)
 router.get('/', jobController.getJobs);
 
+//@ GET api/jobs/:jobId/urls
+//@ Desc Get the urls from a job
+router.get('/:jobId/urls', jobController.getUrlsByJobId);
+
 export default router;

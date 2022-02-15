@@ -2,10 +2,8 @@ import {
   Component,
   ContentChildren,
   QueryList,
-  Input,
   AfterContentInit,
 } from '@angular/core';
-import { IJob } from 'src/app/models/job';
 import { PanelComponent } from './panel/panel.component';
 
 @Component({
@@ -16,5 +14,15 @@ import { PanelComponent } from './panel/panel.component';
 export class AccordionComponent implements AfterContentInit {
   @ContentChildren(PanelComponent) panels: QueryList<PanelComponent>;
 
-  ngAfterContentInit() {}
+  ngAfterContentInit() {
+    for (let panel of this.panels) {
+      panel.toggle.subscribe((jobId) => {
+        console.log('job', jobId);
+      });
+    }
+  }
+
+  openPanel(panel: PanelComponent) {
+    panel.isOpen = true;
+  }
 }

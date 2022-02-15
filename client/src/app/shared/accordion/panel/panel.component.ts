@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { IJob } from 'src/app/models/job';
 
 @Component({
@@ -8,4 +8,6 @@ import { IJob } from 'src/app/models/job';
 })
 export class PanelComponent {
   @Input() data: IJob;
+  @Input() isOpen = false;
+  @Output() toggle: EventEmitter<string> = new EventEmitter<string>();
 }

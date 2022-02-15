@@ -64,5 +64,19 @@ export default {
     } catch (err) {
       next(err);
     }
+  },
+
+  /**
+   * Récupérer toutes les urls d'un job
+   */
+  getUrlsByJobId: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const id = new mongoose.Types.ObjectId(req.params.jobId); // string to ObjectId
+      const urls = await Job.findById(id, {urls: {$slice:[0, 10]}});
+
+      if (urls) res.status(200).json({ urls });
+    } catch (err) {
+      next(err);
+    }
   }
 };
