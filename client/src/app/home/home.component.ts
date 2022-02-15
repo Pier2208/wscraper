@@ -12,7 +12,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   private jobsPerPage: number = 5;
   private currentPage: number = 1;
   private jobsSubscription?: Subscription;
-  jobs: IJob[] = [];
+  jobs: IJob[];
   totalJobs: number;
   loadingJobs: boolean = false;
 

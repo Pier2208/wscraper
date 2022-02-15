@@ -1,14 +1,20 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {
+  Component,
+  ContentChildren,
+  QueryList,
+  Input,
+  AfterContentInit,
+} from '@angular/core';
 import { IJob } from 'src/app/models/job';
+import { PanelComponent } from './panel/panel.component';
 
 @Component({
   selector: 'app-accordion',
-  templateUrl: './accordion.component.html',
+  template: '<ng-content></ng-content>',
   styleUrls: ['./accordion.component.scss'],
 })
-export class AccordionComponent implements OnInit {
-  @Input() data: IJob[];
-  constructor() {}
+export class AccordionComponent implements AfterContentInit {
+  @ContentChildren(PanelComponent) panels: QueryList<PanelComponent>;
 
-  ngOnInit(): void {}
+  ngAfterContentInit() {}
 }

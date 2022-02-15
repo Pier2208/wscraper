@@ -2,7 +2,12 @@
 <app-loader *ngIf="loadingJobs"></app-loader>
 
 <section class="jobs">
-  <app-accordion [data]="jobs"></app-accordion>
+  <!-- ACCORDION-->
+  <ng-container *ngIf="jobs">
+    <app-accordion>
+      <app-panel *ngFor="let job of jobs" [data]="job"></app-panel>
+    </app-accordion>
+  </ng-container>
 
   <!-- PAGINATION -->
   <app-paginator *ngIf="totalJobs" [totalItems]="totalJobs"></app-paginator>

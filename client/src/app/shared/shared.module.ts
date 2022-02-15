@@ -7,6 +7,7 @@ import { LoaderComponent } from './loader/loader.component';
 import { PaginatorComponent } from './paginator/paginator.component';
 import { AccordionComponent } from './accordion/accordion.component';
 import { AngularSvgIconModule } from 'angular-svg-icon';
+import { PanelComponent } from './accordion/panel/panel.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
     ButtonComponent,
     LoaderComponent,
     PaginatorComponent,
-    AccordionComponent
+    AccordionComponent,
+    PanelComponent,
   ],
   imports: [
     CommonModule,
@@ -27,7 +29,8 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
     ButtonComponent,
     LoaderComponent,
     PaginatorComponent,
-    AccordionComponent
+    AccordionComponent,
+    PanelComponent
   ]
 })
 export class SharedModule { }

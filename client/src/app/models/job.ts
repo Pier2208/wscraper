@@ -2,6 +2,8 @@ interface IUrl {
   _id: string;
   url: string;
   status: string;
+  statusCode?: number;
+  responseTime?: number;
 }
 
 export interface IJob {
@@ -9,7 +11,7 @@ export interface IJob {
   name: string;
   status: string;
   count: number;
-  urls: IUrl[];
+  urls?: IUrl[];
   createdAt: string;
   updatedAt: string;
 }
