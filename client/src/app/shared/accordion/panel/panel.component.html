@@ -1,22 +1,24 @@
 <article class="panel">
   <div class="panel__name">
     <h2>{{ data.name | uppercase }}</h2>
-    <small>Job créé le {{ data.createdAt | date: "MMM d, y, h:mm:ss a" }}</small>
+    <small
+      >Job créé le {{ data.createdAt | date: "MMM d, y, h:mm:ss a" }}</small
+    >
   </div>
-  
+
   <div class="panel__status">
     <span>Status:</span>
-  
+
     <ng-container *ngIf="data.status === 'IN PROGRESS'">
       <span><b>IN PROGRESS</b></span>
       <app-loader></app-loader>
     </ng-container>
-  
+
     <ng-container *ngIf="data.status === 'QUEUED'">
       <span><b>QUEUED</b></span>
       <svg-icon src="assets/svg/queued.svg"></svg-icon>
     </ng-container>
-  
+
     <ng-container *ngIf="data.status === 'DONE'">
       <div class="column">
         <span><b>COMPLETED</b></span>
@@ -24,16 +26,17 @@
       <svg-icon src="assets/svg/success.svg"></svg-icon>
     </ng-container>
   </div>
-  
+
   <small class="panel__update">{{
     data.updatedAt | date: "MMM d, y, h:mm:ss a"
   }}</small>
-  
+
   <!-- CHEVRON -->
   <svg-icon
     (click)="toggle.emit(data._id)"
     class="panel__extend"
     src="assets/svg/chevron.svg"
+    [ngClass]="{ rotate: isOpen }"
   ></svg-icon>
 </article>
 

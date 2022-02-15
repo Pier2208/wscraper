@@ -2,7 +2,7 @@
   display: grid;
   column-gap: var(--spacing-m);
   grid-template-columns: 2fr 1fr 50px;
-  grid-template-rows: 1fr 1fr fit-content;
+  grid-template-rows: 1fr 1fr minmax(fit-content, 500px);
 
   background-color: #fbfbfb;
   border-radius: 10px;
@@ -25,7 +25,7 @@
   justify-self: start;
 
   display: flex;
-  align-items: flex-end;
+  align-items: center;
 
   & > * {
     margin-right: var(--spacing-s);
@@ -47,9 +47,15 @@
   cursor: pointer;
 }
 
+.rotate {
+  transform: rotate(90deg);
+}
+
 .panel__content {
   grid-column: 1 / -1;
   grid-row: 3;
+  //max-height: 500px;
+  overflow-y: scroll;
 }
 
 .hidden {
