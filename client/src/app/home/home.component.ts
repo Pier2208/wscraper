@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   private jobsSubscription?: Subscription;
   jobs: IJob[];
   totalJobs: number;
+  openedJob?: IJob;
   loadingJobs: boolean = false;
 
   constructor(private job: JobService) {}

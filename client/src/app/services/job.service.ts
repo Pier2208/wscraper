@@ -16,6 +16,8 @@ export class JobService {
   changedDoc = this.socket.fromEvent<any>('updatedJob');
   private jobs: IJob[] = [];
   private updatedJobs = new Subject<IJobs>();
+  private job: IJob;
+  private updatedJob = new Subject<IJob>();
   private totalJobs: number;
 
   private jobApi = 'http://localhost:3001/api';
@@ -69,5 +71,9 @@ export class JobService {
           this.updatedJobs.next({ count: this.totalJobs, jobs: this.jobs });
         }
       });
+  }
+
+  getOpenedJob(jobId: string) {
+    return this.http.get<any>(`${this.jobApi}/jobs/${jobId}/urls`);
   }
 }

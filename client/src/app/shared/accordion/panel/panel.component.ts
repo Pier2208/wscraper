@@ -9,5 +9,6 @@ import { IJob } from 'src/app/models/job';
 export class PanelComponent {
   @Input() data: IJob;
   @Input() isOpen = false;
+  @Input() urls: any[] = [];
   @Output() toggle: EventEmitter<string> = new EventEmitter<string>();
 }

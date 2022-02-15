@@ -36,7 +36,12 @@
 ></svg-icon>
 
 <!-- CONTENT -->
-<!-- <div class="panel__content" [ngClass]="{'hidden': !isOpen}"> -->
+<div class="panel__content" [ngClass]="{'hidden': !isOpen}">
+  <ul>
+    <li *ngFor="let url of urls">
+      {{ url.url }}
+    </li>
+  </ul>
 
 <!-- TABLE DE VALIDATION DES URLS -->
 <!-- <table *ngIf="data.urls.length">
@@ -70,4 +75,4 @@
         </td>
       </tr>
     </table> -->
-<!-- </div> -->
+</div>
