@@ -72,9 +72,9 @@ export default {
   getUrlsByJobId: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const id = new mongoose.Types.ObjectId(req.params.jobId); // string to ObjectId
-      const job = await Job.findById(id, {urls: {$slice:[0, 10]}});
+      const job = await Job.findById(id, { urls: { $slice: [0, 10] } });
 
-      if (job) res.status(200).json({ job });
+      if (job) res.status(200).json(job);
     } catch (err) {
       next(err);
     }

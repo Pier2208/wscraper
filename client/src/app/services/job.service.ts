@@ -74,6 +74,6 @@ export class JobService {
   }
 
   getOpenedJob(jobId: string) {
-    return this.http.get<any>(`${this.jobApi}/jobs/${jobId}/urls`);
+    return this.http.get<IJob>(`${this.jobApi}/jobs/${jobId}/urls`);
   }
 }

@@ -8,6 +8,7 @@ import { PaginatorComponent } from './paginator/paginator.component';
 import { AccordionComponent } from './accordion/accordion.component';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { PanelComponent } from './accordion/panel/panel.component';
+import { InfiniteScrollComponent } from './infinite-scroll/infinite-scroll.component';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { PanelComponent } from './accordion/panel/panel.component';
     PaginatorComponent,
     AccordionComponent,
     PanelComponent,
+    InfiniteScrollComponent,
   ],
   imports: [
     CommonModule,
@@ -30,7 +32,8 @@ import { PanelComponent } from './accordion/panel/panel.component';
     LoaderComponent,
     PaginatorComponent,
     AccordionComponent,
-    PanelComponent
+    PanelComponent,
+    InfiniteScrollComponent,
   ]
 })
 export class SharedModule { }
