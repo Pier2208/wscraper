@@ -11,6 +11,7 @@ export class PanelComponent {
   @Input() data: IJob;
   isOpen = false;
   urls: IUrl[] = [];
+  totalUrls: number;
 
   constructor(private job: JobService) {}
 
@@ -18,7 +19,7 @@ export class PanelComponent {
     this.isOpen = !this.isOpen;
     if (this.isOpen) {
       this.job.getOpenedJob(this.data._id).subscribe((data) => {
-        console.log('data', data);
+        this.totalUrls = data.count;
         this.urls = [...this.urls, ...data.urls];
       });
     }
