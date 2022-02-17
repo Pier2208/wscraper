@@ -12,6 +12,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   private jobsPerPage: number = 5;
   private currentPage: number = 1;
   private jobsSubscription?: Subscription;
+  private realTimeSubscription?: Subscription;
   jobs: IJob[];
   totalJobs: number;
   openedJob?: IJob;
@@ -27,11 +28,12 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.jobs = data.jobs;
         this.totalJobs = data.count;
       });
-    this.job.getRealTimeUpdate();
+    this.realTimeSubscription = this.job.getRealTimeUpdate();
   }
 
   ngOnDestroy(): void {
     this.jobsSubscription?.unsubscribe();
+    this.realTimeSubscription?.unsubscribe();
   }
 
   deleteJob(jobId: string) {

@@ -29,7 +29,7 @@ export class JobService {
   }
 
   getRealTimeUpdate() {
-    this.changedDoc.subscribe((doc) => {
+    const realTimeSub = this.changedDoc.subscribe((doc) => {
       console.log('doc', doc);
       const jobIndex = this.jobs.findIndex((job) => job._id === doc._id);
 
@@ -38,6 +38,7 @@ export class JobService {
         this.updatedJobs.next({ count: this.totalJobs, jobs: this.jobs });
       }
     });
+    return realTimeSub
   }
 
   getJobs(currentPage: number, jobsPerPage: number) {
