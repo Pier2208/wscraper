@@ -7,12 +7,14 @@ import { AddComponent } from './add/add.component';
 import { SharedModule } from '../shared/shared.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { CreateJobFormComponent } from './create-job-form/create-job-form.component';
+import { DownloadJobModalComponent } from './download-job-modal/download-job-modal.component';
 
 
 @NgModule({
   declarations: [
     AddComponent,
-    CreateJobFormComponent
+    CreateJobFormComponent,
+    DownloadJobModalComponent
   ],
   imports: [
     CommonModule,

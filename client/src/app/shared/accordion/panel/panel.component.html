@@ -7,29 +7,32 @@
   </div>
 
   <div class="panel__status">
-    <span>Status:</span>
+    <div>
+      <span>Status:</span>
+      <ng-container *ngIf="data.status === 'IN PROGRESS'">
+        <span><b>IN PROGRESS</b></span>
+        <app-loader></app-loader>
+      </ng-container>
 
-    <ng-container *ngIf="data.status === 'IN PROGRESS'">
-      <span><b>IN PROGRESS</b></span>
-      <app-loader></app-loader>
-    </ng-container>
+      <ng-container *ngIf="data.status === 'QUEUED'">
+        <span><b>QUEUED</b></span>
+        <svg-icon src="assets/svg/queued.svg"></svg-icon>
+      </ng-container>
 
-    <ng-container *ngIf="data.status === 'QUEUED'">
-      <span><b>QUEUED</b></span>
-      <svg-icon src="assets/svg/queued.svg"></svg-icon>
-    </ng-container>
+      <ng-container *ngIf="data.status === 'DONE'">
+        <div class="column">
+          <span><b>COMPLETED</b></span>
+        </div>
+        <svg-icon src="assets/svg/success.svg"></svg-icon>
+      </ng-container>
+    </div>
 
-    <ng-container *ngIf="data.status === 'DONE'">
-      <div class="column">
-        <span><b>COMPLETED</b></span>
-      </div>
-      <svg-icon src="assets/svg/success.svg"></svg-icon>
-    </ng-container>
+    <small>{{ data.updatedAt | date: "MMM d, y, h:mm:ss a" }}</small>
   </div>
 
-  <small class="panel__update">{{
-    data.updatedAt | date: "MMM d, y, h:mm:ss a"
-  }}</small>
+  <div class="panel__update">
+    <svg-icon *ngIf="data.status === 'DONE'" src="assets/svg/download.svg" (click)="openModal()"></svg-icon>
+  </div>
 
   <!-- CHEVRON -->
   <svg-icon

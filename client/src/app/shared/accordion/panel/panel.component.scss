@@ -8,7 +8,7 @@
   border-radius: 10px;
   box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.05);
   margin-top: var(--spacing-m);
-  height: 100px;
+  height: 110px;
   padding: var(--spacing-s);
 }
 
@@ -21,14 +21,15 @@
 
 .panel__status {
   grid-column: 2;
-  grid-row: 1;
+  grid-row: 1 / -1;
   justify-self: start;
+  align-self: center;
 
-  display: flex;
-  align-items: flex-end;
-
-  & > * {
-    margin-right: var(--spacing-s);
+  & div:first-of-type {
+    display: flex;
+    & > * {
+      margin-right: var(--spacing-s);
+    }
   }
 }
 
@@ -36,7 +37,12 @@
   grid-column: 2;
   grid-row: 2;
   justify-self: start;
-  align-self: start;
+  align-self: center;
+  vertical-align: baseline;
+
+  svg {
+    cursor: pointer;
+  }
 }
 
 .panel__extend {

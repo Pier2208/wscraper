@@ -8,6 +8,8 @@ import { PaginatorComponent } from './paginator/paginator.component';
 import { AccordionComponent } from './accordion/accordion.component';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { PanelComponent } from './accordion/panel/panel.component';
+import { ModalComponent } from './modal/modal.component';
+import { ModalService } from '../services/modal.service';
 
 
 @NgModule({
@@ -17,7 +19,8 @@ import { PanelComponent } from './accordion/panel/panel.component';
     LoaderComponent,
     PaginatorComponent,
     AccordionComponent,
-    PanelComponent
+    PanelComponent,
+    ModalComponent
   ],
   imports: [
     CommonModule,
@@ -30,7 +33,9 @@ import { PanelComponent } from './accordion/panel/panel.component';
     LoaderComponent,
     PaginatorComponent,
     AccordionComponent,
-    PanelComponent
-  ]
+    PanelComponent,
+    ModalComponent
+  ],
+  providers: [ModalService]
 })
 export class SharedModule { }

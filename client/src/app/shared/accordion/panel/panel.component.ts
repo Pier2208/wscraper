@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { IJob, IUrl } from 'src/app/models/job';
 import { JobService } from 'src/app/services/job.service';
+import { ModalService } from 'src/app/services/modal.service';
 
 @Component({
   selector: 'app-panel',
@@ -13,7 +14,7 @@ export class PanelComponent {
   urls: IUrl[] = [];
   totalUrls: number;
 
-  constructor(private job: JobService) {}
+  constructor(private job: JobService, public modal: ModalService) {}
 
   toggle() {
     this.isOpen = !this.isOpen;
@@ -29,5 +30,9 @@ export class PanelComponent {
 
   onScroll() {
     console.log('Scrolling');
+  }
+
+  openModal() {
+    this.modal.toggleModal();
   }
 }
