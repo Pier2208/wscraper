@@ -1,3 +1,10 @@
-<div class="modal" [ngClass]="{ hidden: !modal.isModalOpen() }">
-  <ng-content></ng-content>
+<div *ngIf="modal.isModalOpen()" (click)="closeModal()" class="overlay">
+  <div class="modal" [ngClass]="{ hidden: !modal.isModalOpen() }">
+    <svg-icon
+      class="modal__close"
+      (click)="closeModal()"
+      src="assets/svg/close.svg"
+    ></svg-icon>
+    <ng-content></ng-content>
+  </div>
 </div>

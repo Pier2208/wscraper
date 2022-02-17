@@ -1,10 +1,32 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
 .modal {
-    width: 300px;
-    height: 300px;
-    z-index: 11;
-    background-color: beige;
+  width: 40vw;
+  height: 60vh;
+  z-index: 11;
+  background-color: var(--white);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 15px;
+  padding: var(--spacing-s);
+
+  &__close {
+    cursor: pointer;
+  }
 }
 
 .hidden {
-    display: none;
+  display: none;
 }
