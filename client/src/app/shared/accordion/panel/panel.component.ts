@@ -20,8 +20,10 @@ export class PanelComponent {
     if (this.isOpen) {
       this.job.getOpenedJob(this.data._id).subscribe((data) => {
         this.totalUrls = data.count;
-        this.urls = [...this.urls, ...data.urls];
+        this.urls = data.urls;
       });
+    } else {
+      this.urls = [];
     }
   }
 
