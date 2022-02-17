@@ -12,6 +12,7 @@
 <!-- standard input -->
 <input
   *ngIf="variant === 'input'"
+  [type]="type"
   [formControl]="control"
   [placeholder]="placeholder"
   [class.errorInput]="!control.valid && control.touched && control.dirty"

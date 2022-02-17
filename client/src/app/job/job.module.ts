@@ -8,13 +8,15 @@ import { SharedModule } from '../shared/shared.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { CreateJobFormComponent } from './create-job-form/create-job-form.component';
 import { DownloadJobModalComponent } from './download-job-modal/download-job-modal.component';
+import { DownloadJobFormComponent } from './download-job-form/download-job-form.component';
 
 
 @NgModule({
   declarations: [
     AddComponent,
     CreateJobFormComponent,
-    DownloadJobModalComponent
+    DownloadJobModalComponent,
+    DownloadJobFormComponent
   ],
   imports: [
     CommonModule,
@@ -22,6 +24,9 @@ import { DownloadJobModalComponent } from './download-job-modal/download-job-mod
     JobRoutingModule,
     ReactiveFormsModule,
     AngularSvgIconModule
+  ],
+  exports: [
+    DownloadJobModalComponent
   ]
 })
 export class JobModule { }

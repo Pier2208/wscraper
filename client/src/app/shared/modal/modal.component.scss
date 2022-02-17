@@ -12,18 +12,21 @@
 
 .modal {
   width: 40vw;
-  height: 60vh;
+  height: fit-content;
   z-index: 11;
   background-color: var(--white);
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  border-radius: 15px;
-  padding: var(--spacing-s);
+  border-radius: 10px;
+  padding: var(--spacing-m);
 
   &__close {
     cursor: pointer;
+    position: absolute;
+    top: var(--spacing-s);
+    right: var(--spacing-s);
   }
 }
 

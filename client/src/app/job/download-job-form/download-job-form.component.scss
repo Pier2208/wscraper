@@ -1,0 +1,15 @@
+form {
+    display: flex;
+    flex-direction: column;
+     & > * {
+      margin-top: var(--spacing-s);
+     }
+
+     h2:last-of-type {
+         margin-top: var(--spacing-m);
+     }
+  }
+
+  .actions > * {
+      margin-right: var(--spacing-s);
+  }
