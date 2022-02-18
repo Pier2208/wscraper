@@ -4,14 +4,22 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class PaginationService {
-  itemsPerPage: number = 5;
-  currentPage: number = 1;
+  private currentPage: number = 1;
+  private itemsPerPage: number = 5;
 
-  update(currentPage: number, itemsPerPage: number) {
+  /**
+   * Update the current pagination settings
+   * @param {number} currentPage - The current page
+   * @param {number} itemsPerPage - Number of items to display per page
+   */
+  updatePagination(currentPage: number, itemsPerPage: number) {
     this.currentPage = currentPage;
     this.itemsPerPage = itemsPerPage;
   }
 
+  /**
+   * Getter to retrieve the current pagination settings
+   */
   getCurrentPagination() {
     return {
       currentPage: this.currentPage,

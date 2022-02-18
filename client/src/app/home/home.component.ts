@@ -18,10 +18,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(private job: JobService, private pagination: PaginationService) {}
 
   ngOnInit(): void {
+    // watch all jobs the user is currently on (every 5 seconds)
     this.jobsListener(() => {
+      // get the current pagination settings...
       const { currentPage, itemsPerPage } = this.pagination.getCurrentPagination();
+      // ...and get the corresponding jobs
       this.job.getJobs(currentPage, itemsPerPage);
     }, 5000);
+
     this.jobsSubscription = this.job
       .getJobUpdateEvent()
       .subscribe((data: IJobs) => {
@@ -30,16 +34,17 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
   }
 
-  jobsListener(func: Function, interval: number) {
-    func();
-    return setInterval(func, interval);
-  }
-
   ngOnDestroy(): void {
     this.jobsSubscription?.unsubscribe();
   }
 
-  deleteJob(jobId: string) {
-    this.job.deleteJob(jobId);
+  /**
+   * Run a function at regular intervals
+   * @param {function} func - A function to run
+   * @param {number} interval - Interval to run the func at
+   */
+  jobsListener(func: Function, interval: number) {
+    func();
+    return setInterval(func, interval);
   }
 }

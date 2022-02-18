@@ -8,5 +8,4 @@ import { JobService } from '../../services/job.service';
 })
 export class AddComponent {
   constructor(private job: JobService) {}
-  
 }

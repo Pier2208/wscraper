@@ -1,7 +1,7 @@
 .panel {
   display: grid;
   column-gap: var(--spacing-m);
-  grid-template-columns: 2fr 1fr 50px;
+  grid-template-columns: 2fr 1fr 200px;
   grid-template-rows: 1fr 1fr minmax(fit-content, 500px);
 
   background-color: #fdfdfd;
@@ -10,6 +10,11 @@
   margin-top: var(--spacing-m);
   height: 110px;
   padding: var(--spacing-s);
+
+  svg {
+    cursor: pointer;
+    margin-left: var(--spacing-m);
+  }
 }
 
 .panel__name {
@@ -39,16 +44,12 @@
   justify-self: start;
   align-self: center;
   vertical-align: baseline;
-
-  svg {
-    cursor: pointer;
-  }
 }
 
-.panel__extend {
+.panel__actions {
   grid-column: 3;
   grid-row: 1 / -1;
-  justify-self: end;
+  justify-self: center;
   align-self: center;
   cursor: pointer;
 }
@@ -68,7 +69,6 @@
 .hidden {
   display: none;
 }
-
 
 // table
 table {

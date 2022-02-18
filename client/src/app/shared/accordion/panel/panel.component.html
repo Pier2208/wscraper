@@ -25,17 +25,11 @@
     <small>{{ data.updatedAt | date: "MMM d, y, h:mm:ss a" }}</small>
   </div>
 
-  <div class="panel__update">
-    <svg-icon *ngIf="data.status === 'DONE'" src="assets/svg/download.svg" (click)="openModal(data._id)"></svg-icon>
+  <div *ngIf="data.status === 'DONE'" class="panel__actions">
+    <svg-icon src="assets/svg/see.svg"></svg-icon>
+    <svg-icon src="assets/svg/download.svg" (click)="openModal(data._id)"></svg-icon>
+    <svg-icon src="assets/svg/delete.svg" (click)="deleteJob(data._id)"></svg-icon>
   </div>
-
-  <!-- CHEVRON -->
-  <svg-icon
-    (click)="toggle()"
-    class="panel__extend"
-    src="assets/svg/chevron.svg"
-    [ngClass]="{ rotate: isOpen }"
-  ></svg-icon>
 </article>
 
 <!-- CONTENT -->

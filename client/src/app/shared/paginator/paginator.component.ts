@@ -42,27 +42,27 @@ export class PaginatorComponent implements OnInit {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
       this.Job.getJobs(this.currentPage, this.itemsPerPage);
-      this.pagination.update(this.currentPage, this.itemsPerPage);
+      this.pagination.updatePagination(this.currentPage, this.itemsPerPage);
     }
   }
 
   previousPage() {
     if (this.currentPage > 1) this.currentPage--;
     this.Job.getJobs(this.currentPage, this.itemsPerPage);
-    this.pagination.update(this.currentPage, this.itemsPerPage);
+    this.pagination.updatePagination(this.currentPage, this.itemsPerPage);
   }
 
   getCurrentPage(page: number) {
     this.currentPage = page;
     this.Job.getJobs(page, this.itemsPerPage);
-    this.pagination.update(page, this.itemsPerPage);
+    this.pagination.updatePagination(page, this.itemsPerPage);
   }
 
   selectItemsPerPage(n: string) {
     this.itemsPerPage = parseInt(n, 10);
     this.currentPage = 1;
     this.Job.getJobs(this.currentPage, this.itemsPerPage);
-    this.pagination.update(this.currentPage, this.itemsPerPage);
+    this.pagination.updatePagination(this.currentPage, this.itemsPerPage);
     this.pageNumber();
     this.createButtons();
   }
