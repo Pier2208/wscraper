@@ -6,6 +6,12 @@ h1 {
   margin-bottom: var(--spacing-m);
 }
 
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .back {
   align-items: center;
   display: flex;

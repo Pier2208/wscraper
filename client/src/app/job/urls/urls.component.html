@@ -4,7 +4,12 @@
 </div>
 
 <!-- TABLE DE VALIDATION DES URLS -->
-<h1>{{ currentJob?.name }}</h1>
+<header>
+    <h1>{{ currentJob?.name }}</h1>
+    <div class="job__actions">
+        <svg-icon src="assets/svg/download.svg" (click)="openModal()"></svg-icon>
+    </div>
+</header>
 <table>
   <tr>
     <th>URL ({{ currentJob?.count }})</th>
