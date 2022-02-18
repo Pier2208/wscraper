@@ -58,7 +58,7 @@ export class JobService {
       });
   }
 
-  getOpenedJob(jobId: string) {
+  getCurrentJob(jobId: string) {
     return this.http.get<IJob>(`${this.jobApi}/jobs/${jobId}/urls`);
   }
 }

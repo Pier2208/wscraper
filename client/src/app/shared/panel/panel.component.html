@@ -31,39 +31,3 @@
     <svg-icon src="assets/svg/delete.svg" (click)="deleteJob(data._id)"></svg-icon>
   </div>
 </article>
-
-<!-- CONTENT -->
-<div class="panel__content" [ngClass]="{ hidden: !isOpen }">
-  <!-- TABLE DE VALIDATION DES URLS -->
-  <table *ngIf="urls.length">
-    <tr>
-      <th>URL ({{ totalUrls }})</th>
-      <th>TEMPS DE RÉPONSE</th>
-      <th>CODE</th>
-      <th>STATUS</th>
-    </tr>
-    <tr
-      *ngFor="let url of urls"
-      [ngClass]="{
-        error: url.statusCode && url.statusCode >= 400,
-        success: url.statusCode && url.statusCode < 400
-      }"
-    >
-      <td>{{ url.url }}</td>
-      <td class="center">
-        {{ url.responseTime && url.responseTime.toFixed() + "ms" }}
-      </td>
-      <td>{{ url.statusCode }}</td>
-      <td class="center">
-        <svg-icon
-          *ngIf="url.statusCode && url.statusCode < 400"
-          src="assets/svg/success.svg"
-        ></svg-icon>
-        <svg-icon
-          *ngIf="url.statusCode && url.statusCode >= 400"
-          src="assets/svg/error.svg"
-        ></svg-icon>
-      </td>
-    </tr>
-  </table>
-</div>

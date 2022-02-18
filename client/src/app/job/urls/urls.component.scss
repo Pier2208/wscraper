@@ -1,0 +1,63 @@
+:host > * {
+  margin-top: var(--spacing-l);
+}
+
+h1 {
+  margin-bottom: var(--spacing-m);
+}
+
+.back {
+  align-items: center;
+  display: flex;
+  margin: var(--spacing-l) 0;
+  text-decoration: underline;
+
+  & svg {
+    margin-right: var(--spacing-m);
+  }
+
+  & span {
+    cursor: pointer;
+  }
+}
+
+// table
+table {
+  max-width: 100%;
+  width: 100%;
+  margin: var(--spacing-s) 0;
+  font-family: var(--font-body);
+}
+
+th {
+  padding: 0 var(--spacing-s);
+  border: 1px solid var(--white);
+  background-color: var(--color-grey-dark);
+  color: var(--white);
+  text-align: left;
+}
+
+td {
+  padding: var(--spacing-s);
+  width: fit-content;
+  vertical-align: middle;
+  text-align: left;
+  word-break: break-all;
+}
+
+td.center {
+  text-align: center;
+  padding: 0 var(--spacing-s);
+}
+
+tr {
+  background-color: var(--color-grey-light);
+}
+
+tr.error {
+  background-color: var(--color-error-faded);
+}
+
+tr.success {
+  background-color: var(--color-success-faded);
+}

@@ -10,23 +10,9 @@ import { ModalService } from 'src/app/services/modal.service';
 })
 export class PanelComponent {
   @Input() data: IJob;
-  isOpen = false;
   urls: IUrl[] = [];
-  totalUrls: number;
 
   constructor(private job: JobService, public modal: ModalService) {}
-
-  toggle() {
-    this.isOpen = !this.isOpen;
-    if (this.isOpen) {
-      this.job.getOpenedJob(this.data._id).subscribe((data) => {
-        this.totalUrls = data.count;
-        this.urls = data.urls;
-      });
-    } else {
-      this.urls = [];
-    }
-  }
 
   openModal(id: string) {
     this.modal.toggleModal();

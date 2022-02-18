@@ -2,7 +2,7 @@
   display: grid;
   column-gap: var(--spacing-m);
   grid-template-columns: 2fr 1fr 200px;
-  grid-template-rows: 1fr 1fr minmax(fit-content, 500px);
+  grid-template-rows: 1fr 1fr;
 
   background-color: #fdfdfd;
   border-radius: 10px;
@@ -56,57 +56,4 @@
 
 .rotate {
   transform: rotate(90deg);
-}
-
-.panel__content {
-  grid-column: 1 / -1;
-  grid-row: 3;
-  height: fit-content;
-  max-height: 500px;
-  overflow-y: scroll;
-}
-
-.hidden {
-  display: none;
-}
-
-// table
-table {
-  max-width: 100%;
-  width: 100%;
-  margin: var(--spacing-s) 0;
-  font-family: var(--font-body);
-}
-
-th {
-  padding: 0 var(--spacing-s);
-  border: 1px solid var(--white);
-  background-color: var(--color-grey-dark);
-  color: var(--white);
-  text-align: left;
-}
-
-td {
-  padding: var(--spacing-s);
-  width: fit-content;
-  vertical-align: middle;
-  text-align: left;
-  word-break: break-all;
-}
-
-td.center {
-  text-align: center;
-  padding: 0 var(--spacing-s);
-}
-
-tr {
-  background-color: var(--color-grey-light);
-}
-
-tr.error {
-  background-color: var(--color-error-faded);
-}
-
-tr.success {
-  background-color: var(--color-success-faded);
 }

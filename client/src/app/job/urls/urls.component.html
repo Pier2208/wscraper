@@ -1,1 +1,37 @@
-<p>urls works!</p>
+<div class="back">
+  <svg-icon src="assets/svg/back.svg"></svg-icon>
+  <a routerLink="/">Retour à la liste des jobs</a>
+</div>
+
+<!-- TABLE DE VALIDATION DES URLS -->
+<table>
+  <tr>
+    <th>URL ()</th>
+    <th>TEMPS DE RÉPONSE</th>
+    <th>CODE</th>
+    <th>STATUS</th>
+  </tr>
+  <!-- <tr
+    *ngFor="let url of urls"
+    [ngClass]="{
+      error: url.statusCode && url.statusCode >= 400,
+      success: url.statusCode && url.statusCode < 400
+    }"
+  >
+    <td>{{ url.url }}</td>
+    <td class="center">
+      {{ url.responseTime && url.responseTime.toFixed() + "ms" }}
+    </td>
+    <td>{{ url.statusCode }}</td>
+    <td class="center">
+      <svg-icon
+        *ngIf="url.statusCode && url.statusCode < 400"
+        src="assets/svg/success.svg"
+      ></svg-icon>
+      <svg-icon
+        *ngIf="url.statusCode && url.statusCode >= 400"
+        src="assets/svg/error.svg"
+      ></svg-icon>
+    </td>
+  </tr> -->
+</table>
