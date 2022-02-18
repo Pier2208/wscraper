@@ -1,31 +1,10 @@
 import express, { ErrorRequestHandler, NextFunction, Request, Response } from 'express';
-import http from 'http';
-import socket from 'socket.io';
 import jobRouter from './job-api/routes/jobRoutes';
 import db from './db/mongoose';
 import validator from './validator/index';
-import { Job } from './job-api/models/job.model';
-
-let updates: any;
 
 // Express app
 const app = express();
-
-// socket.io
-const server = http.createServer(app);
-const io = new socket.Server(server, {
-  cors: {
-    origin: '*',
-    methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE']
-  }
-});
-io.listen(3003)
-
-io.on('connection', socket => {
-  updates.on('change', (next: any) => {
-      io.emit('updatedJob', next.fullDocument)
-    });
-})
 
 //middlewares
 app.use(express.urlencoded({ extended: true }));
@@ -50,16 +29,4 @@ app.listen(3001, async () => {
   db.connect();
   // start the url validator in the background
   validator();
-
-  // listening to jobs collection
- updates = Job.watch(
-    [
-      {
-        $match: {
-          operationType: 'update'
-        }
-      }
-    ],
-    { fullDocument: 'updateLookup' }
-  )
 });

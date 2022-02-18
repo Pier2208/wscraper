@@ -9,14 +9,9 @@
   <div class="panel__status">
     <div>
       <span>Status:</span>
-      <ng-container *ngIf="data.status === 'IN PROGRESS'">
+      <ng-container *ngIf="data.status === 'IN PROGRESS' || data.status === 'QUEUED'">
         <span><b>IN PROGRESS</b></span>
         <app-loader></app-loader>
-      </ng-container>
-
-      <ng-container *ngIf="data.status === 'QUEUED'">
-        <span><b>QUEUED</b></span>
-        <svg-icon src="assets/svg/queued.svg"></svg-icon>
       </ng-container>
 
       <ng-container *ngIf="data.status === 'DONE'">

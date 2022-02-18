@@ -11,8 +11,7 @@ import { IJobs, IJob } from '../models/job';
 export class HomeComponent implements OnInit, OnDestroy {
   private jobsPerPage: number = 5;
   private currentPage: number = 1;
-  private jobsSubscription?: Subscription;
-  private realTimeSubscription?: Subscription;
+  private jobsSubscription?: Subscription
   jobs: IJob[];
   totalJobs: number;
   loadingJobs: boolean = false;
@@ -20,19 +19,25 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(private job: JobService) {}
 
   ngOnInit(): void {
-    this.job.getJobs(this.currentPage, this.jobsPerPage);
+    this.jobsListener(
+      () => this.job.getJobs(this.currentPage, this.jobsPerPage),
+      5000
+    );
     this.jobsSubscription = this.job
       .getJobUpdateEvent()
       .subscribe((data: IJobs) => {
         this.jobs = data.jobs;
         this.totalJobs = data.count;
       });
-    this.realTimeSubscription = this.job.getRealTimeUpdate();
+  }
+
+  jobsListener(func: Function, interval: number) {
+    func();
+    return setInterval(func, interval);
   }
 
   ngOnDestroy(): void {
     this.jobsSubscription?.unsubscribe();
-    this.realTimeSubscription?.unsubscribe();
   }
 
   deleteJob(jobId: string) {
