@@ -9,6 +9,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { PanelComponent } from './panel/panel.component';
 import { ModalComponent } from './modal/modal.component';
 import { ModalService } from '../services/modal.service';
+import { AppRoutingModule } from '../app-routing.module';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { ModalService } from '../services/modal.service';
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    AppRoutingModule,
     AngularSvgIconModule.forRoot()
   ],
   exports: [

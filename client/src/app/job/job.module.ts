@@ -9,6 +9,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { CreateJobFormComponent } from './create-job-form/create-job-form.component';
 import { DownloadJobModalComponent } from './download-job-modal/download-job-modal.component';
 import { DownloadJobFormComponent } from './download-job-form/download-job-form.component';
+import { UrlsComponent } from './urls/urls.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { DownloadJobFormComponent } from './download-job-form/download-job-form.
     AddComponent,
     CreateJobFormComponent,
     DownloadJobModalComponent,
-    DownloadJobFormComponent
+    DownloadJobFormComponent,
+    UrlsComponent
   ],
   imports: [
     CommonModule,

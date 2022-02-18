@@ -26,7 +26,7 @@
   </div>
 
   <div *ngIf="data.status === 'DONE'" class="panel__actions">
-    <svg-icon src="assets/svg/see.svg"></svg-icon>
+    <a [routerLink]="['/job', data._id]"><svg-icon src="assets/svg/see.svg"></svg-icon></a>
     <svg-icon src="assets/svg/download.svg" (click)="openModal(data._id)"></svg-icon>
     <svg-icon src="assets/svg/delete.svg" (click)="deleteJob(data._id)"></svg-icon>
   </div>
