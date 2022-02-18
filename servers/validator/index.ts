@@ -53,7 +53,7 @@ export default () => {
     });
   }
 
-  setInterval(fetchJobs, 5000);
+  setInterval(fetchJobs, 10000);
 
   async function checkUrl(url: string) {
     const start = process.hrtime();

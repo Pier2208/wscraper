@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { JobService } from 'src/app/services/job.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormArray, FormControl } from '@angular/forms';
+import { ModalService } from 'src/app/services/modal.service';
 
 interface IJobForm {
   url: boolean;
@@ -14,21 +15,45 @@ interface IJobForm {
   styleUrls: ['./download-job-form.component.scss'],
 })
 export class DownloadJobFormComponent implements OnInit {
-  constructor(private job: JobService) {}
-
-  url = new FormControl();
-  responseTime = new FormControl();
-  statusCode = new FormControl();
-
-  downloadJobForm = new FormGroup({
-    url: this.url,
-    responseTime: this.responseTime,
-    statusCode: this.statusCode,
+  downloadJobForm = this.fb.group({
+    fields: new FormArray([]),
   });
 
-  ngOnInit(): void {}
+  formFields = [
+    { name: 'url', checked: true },
+    { name: 'responseTime', checked: true },
+    { name: 'statusCode', checked: true },
+  ];
 
-  onSubmit(value: IJobForm) {
-    console.log('value', value);
+  constructor(
+    private fb: FormBuilder,
+    private job: JobService,
+    private modal: ModalService
+  ) {}
+
+  ngOnInit(): void {
+    this.addCheckboxes();
+  }
+
+  private addCheckboxes() {
+    this.formFields.forEach(() =>
+      this.formFieldsArray.push(new FormControl(false))
+    );
+  }
+
+  get formFieldsArray() {
+    return this.downloadJobForm.controls['fields'] as FormArray;
+  }
+
+  onSubmit(format: string) {
+    const selected = this.downloadJobForm.value.fields
+      .map((checked: any, i: number) => {
+        return checked ? this.formFields[i].name : null;
+      })
+      .filter((v: any) => v !== null);
+    const modalId = this.modal.getModalId();
+    console.log('modal', modalId);
+    this.downloadJobForm.reset();
+    this.modal.toggleModal();
   }
 }

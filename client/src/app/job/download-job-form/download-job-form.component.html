@@ -1,15 +1,18 @@
-<form
-  [formGroup]="downloadJobForm"
-  (ngSubmit)="onSubmit(downloadJobForm.value)"
->
-<h2>Sélectionner les champs inclure:</h2>
-  <app-input [type]="'checkbox'" [control]="url" label="url:"></app-input>
-  <app-input [type]="'checkbox'" [control]="responseTime" label="response time:"></app-input>
-  <app-input [type]="'checkbox'" [control]="statusCode" label="status code:"></app-input>
+<form [formGroup]="downloadJobForm">
+  <h2>Sélectionner les champs inclure:</h2>
+  <label formArrayName="fields" *ngFor="let field of formFieldsArray.controls; let i = index">
+    <input type="checkbox" [formControlName]="i">
+    {{formFields[i].name}}
+  </label>
 
   <h2>Sélectionner le format de fichier:</h2>
   <div class="actions">
-      <app-button [disabled]="downloadJobForm.invalid"> CSV </app-button>
-      <app-button [disabled]="downloadJobForm.invalid"> JSON </app-button>
+      <!-- <button type="submit">btn</button> -->
+    <app-button [type]="'button'" (click)="onSubmit('csv')" [disabled]="downloadJobForm.invalid">
+      CSV
+    </app-button>
+    <app-button [type]="'button'" (click)="onSubmit('json')" [disabled]="downloadJobForm.invalid">
+      JSON
+    </app-button>
   </div>
 </form>

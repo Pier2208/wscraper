@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ModalService {
   private visible = false;
+  private currentModal: string;
 
   constructor() {}
 
@@ -12,5 +13,13 @@ export class ModalService {
 
   toggleModal() {
     this.visible = !this.visible;
+  }
+
+  currentModalId(id: string) {
+    this.currentModal = id;
+  }
+
+  getModalId() {
+    return this.currentModal;
   }
 }

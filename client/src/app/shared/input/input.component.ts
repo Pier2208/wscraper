@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 @Component({
@@ -6,12 +6,19 @@ import { FormControl } from '@angular/forms';
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.scss'],
 })
-export class InputComponent {
+export class InputComponent implements OnInit {
   @Input() control: FormControl = new FormControl();
   @Input() placeholder = '';
   @Input() label = '';
   @Input() variant = 'input'; // peut être: textarea
   @Input() type = 'text'; // peut être: email, password, checkbox, radio
 
-  constructor() {}
+  constructor() {
+
+  }
+
+  ngOnInit(): void {
+    console.log('coco', this.control )
+  }
+
 }

@@ -31,7 +31,7 @@
   </div>
 
   <div class="panel__update">
-    <svg-icon *ngIf="data.status === 'DONE'" src="assets/svg/download.svg" (click)="openModal()"></svg-icon>
+    <svg-icon *ngIf="data.status === 'DONE'" src="assets/svg/download.svg" (click)="openModal(data._id)"></svg-icon>
   </div>
 
   <!-- CHEVRON -->
