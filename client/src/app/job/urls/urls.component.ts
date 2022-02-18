@@ -18,7 +18,7 @@ export class UrlsComponent implements OnInit {
       .getCurrentJob(this.route.snapshot.params['id'])
       .subscribe((data) => {
         this.currentJob = data;
-        console.log(data);
+        console.log('currentJob', data)
       });
   }
 }
