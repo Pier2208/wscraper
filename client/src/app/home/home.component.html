@@ -4,9 +4,9 @@
 <section class="jobs">
   <!-- ACCORDION-->
   <ng-container *ngIf="jobs">
-    <app-accordion>
+    <!-- <app-accordion> -->
       <app-panel *ngFor="let job of jobs" [data]="job"></app-panel>
-    </app-accordion>
+    <!-- </app-accordion> -->
   </ng-container>
 
   <!-- PAGINATION -->
@@ -15,3 +15,4 @@
   <!-- MODAL DOWNLOAD TO CSV/JSON -->
   <app-download-job-modal></app-download-job-modal>
 </section>
+ 

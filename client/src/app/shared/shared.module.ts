@@ -5,9 +5,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ButtonComponent } from './button/button.component';
 import { LoaderComponent } from './loader/loader.component';
 import { PaginatorComponent } from './paginator/paginator.component';
-import { AccordionComponent } from './accordion/accordion.component';
 import { AngularSvgIconModule } from 'angular-svg-icon';
-import { PanelComponent } from './accordion/panel/panel.component';
+import { PanelComponent } from './panel/panel.component';
 import { ModalComponent } from './modal/modal.component';
 import { ModalService } from '../services/modal.service';
 
@@ -18,7 +17,6 @@ import { ModalService } from '../services/modal.service';
     ButtonComponent,
     LoaderComponent,
     PaginatorComponent,
-    AccordionComponent,
     PanelComponent,
     ModalComponent
   ],
@@ -32,7 +30,6 @@ import { ModalService } from '../services/modal.service';
     ButtonComponent,
     LoaderComponent,
     PaginatorComponent,
-    AccordionComponent,
     PanelComponent,
     ModalComponent
   ],
