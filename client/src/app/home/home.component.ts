@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { JobService } from '../services/job.service';
+import { PaginationService } from '../services/pagination.service';
 import { IJobs, IJob } from '../models/job';
 
 @Component({
@@ -9,20 +10,18 @@ import { IJobs, IJob } from '../models/job';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  private jobsPerPage: number = 5;
-  private currentPage: number = 1;
-  private jobsSubscription?: Subscription
+  private jobsSubscription?: Subscription;
   jobs: IJob[];
   totalJobs: number;
   loadingJobs: boolean = false;
 
-  constructor(private job: JobService) {}
+  constructor(private job: JobService, private pagination: PaginationService) {}
 
   ngOnInit(): void {
-    this.jobsListener(
-      () => this.job.getJobs(this.currentPage, this.jobsPerPage),
-      5000
-    );
+    this.jobsListener(() => {
+      const { currentPage, itemsPerPage } = this.pagination.getCurrentPagination();
+      this.job.getJobs(currentPage, itemsPerPage);
+    }, 5000);
     this.jobsSubscription = this.job
       .getJobUpdateEvent()
       .subscribe((data: IJobs) => {
