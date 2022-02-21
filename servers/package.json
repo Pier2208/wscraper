@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "csv-stringify": "^6.0.5",
     "dotenv": "^15.0.1",
     "express": "^4.17.2",
     "joi": "^17.6.0",

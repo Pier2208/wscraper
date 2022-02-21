@@ -30,8 +30,9 @@ export class UrlsComponent implements OnInit {
       });
   }
 
-  openModal() {
+  openModal(id: string) {
     this.modal.toggleModal();
+    this.modal.currentModalId(id)
   }
 
   onScroll() {

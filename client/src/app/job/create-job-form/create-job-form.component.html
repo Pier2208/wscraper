@@ -1,7 +1,10 @@
 <form [formGroup]="jobForm" (ngSubmit)="onSubmit(jobForm.value)">
   <app-input [control]="name" label="Nom du job:"></app-input>
-  <app-input [control]="urls" [variant]="'textarea'" label="Urls:"></app-input>
-  <app-button [disabled]="jobForm.invalid">
-    CRÉER ET LANCER LE JOB
-  </app-button>
+  <app-input
+    [control]="urls"
+    [variant]="'textarea'"
+    label="Urls (séparées par des virgules):"
+    placeholder="https://www.example1.com, http://www.example2.ca"
+  ></app-input>
+  <app-button [disabled]="jobForm.invalid"> CRÉER ET LANCER LE JOB </app-button>
 </form>

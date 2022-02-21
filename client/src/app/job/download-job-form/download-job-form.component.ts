@@ -51,9 +51,11 @@ export class DownloadJobFormComponent implements OnInit {
         return checked ? this.formFields[i].name : null;
       })
       .filter((v: any) => v !== null);
-    const modalId = this.modal.getModalId();
-    console.log('modal', modalId);
+    const jobId = this.modal.getModalId();
+    
     this.downloadJobForm.reset();
     this.modal.toggleModal();
+
+    this.job.downloadFile(jobId, format, selected)
   }
 }

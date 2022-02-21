@@ -4,47 +4,52 @@
 </div>
 
 <!-- TABLE DE VALIDATION DES URLS -->
-<header>
-  <h1>{{ currentJob?.name }}</h1>
-  <div class="job__actions">
-    <svg-icon src="assets/svg/download.svg" (click)="openModal()"></svg-icon>
-  </div>
-</header>
+<ng-container *ngIf="currentJob">
+  <header>
+    <h1>{{ currentJob.name }}</h1>
+    <div class="job__actions">
+      <svg-icon
+        src="assets/svg/download.svg"
+        (click)="openModal(currentJob._id)"
+      ></svg-icon>
+    </div>
+  </header>
 
-<app-infinite-scroll (scrolled)="onScroll()">
-  <table>
-    <tr>
-      <th>URL ({{ currentJob?.count }})</th>
-      <th>TEMPS DE RÉPONSE</th>
-      <th>CODE</th>
-      <th>STATUS</th>
-    </tr>
-    <tr
-      *ngFor="let url of currentJob?.urls"
-      [ngClass]="{
-        error: url.statusCode && url.statusCode >= 400,
-        success: url.statusCode && url.statusCode < 400
-      }"
-    >
-      <td>{{ url.url }}</td>
-      <td class="center">
-        {{ url.responseTime && url.responseTime.toFixed() + "ms" }}
-      </td>
-      <td>{{ url.statusCode }}</td>
-      <td class="center">
-        <svg-icon
-          *ngIf="url.statusCode && url.statusCode < 400"
-          src="assets/svg/success.svg"
-        ></svg-icon>
-        <svg-icon
-          *ngIf="url.statusCode && url.statusCode >= 400"
-          src="assets/svg/error.svg"
-        ></svg-icon>
-      </td>
-    </tr>
-  </table>
-</app-infinite-scroll>
-<!-- LOADER -->
-<div class="center">
-  <app-loader *ngIf="scrolled < currentJob.count"></app-loader>
-</div>
+  <app-infinite-scroll (scrolled)="onScroll()">
+    <table>
+      <tr>
+        <th>URL ({{ currentJob.count }})</th>
+        <th>TEMPS DE RÉPONSE</th>
+        <th>CODE</th>
+        <th>STATUS</th>
+      </tr>
+      <tr
+        *ngFor="let url of currentJob.urls"
+        [ngClass]="{
+          error: url.statusCode && url.statusCode >= 400,
+          success: url.statusCode && url.statusCode < 400
+        }"
+      >
+        <td>{{ url.url }}</td>
+        <td class="center">
+          {{ url.responseTime && url.responseTime.toFixed() + "ms" }}
+        </td>
+        <td>{{ url.statusCode }}</td>
+        <td class="center">
+          <svg-icon
+            *ngIf="url.statusCode && url.statusCode < 400"
+            src="assets/svg/success.svg"
+          ></svg-icon>
+          <svg-icon
+            *ngIf="url.statusCode && url.statusCode >= 400"
+            src="assets/svg/error.svg"
+          ></svg-icon>
+        </td>
+      </tr>
+    </table>
+  </app-infinite-scroll>
+  <!-- LOADER -->
+  <div class="center">
+    <app-loader *ngIf="scrolled < currentJob.count"></app-loader>
+  </div>
+</ng-container>

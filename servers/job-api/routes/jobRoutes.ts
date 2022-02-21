@@ -24,4 +24,8 @@ router.get('/', jobController.getJobs);
 //@ Desc Get the urls from a job
 router.get('/:jobId/urls', jobController.getUrlsByJobId);
 
+//@ GET api/jobs/:jobId/download?format=csv
+//@ Desc Get the urls from a job
+router.post('/:jobId/download', jobController.downloadFile);
+
 export default router;

@@ -30,7 +30,7 @@ export class PaginatorComponent implements OnInit {
   }
 
   createButtons() {
-    if (this.totalPages > 5) {
+    if (this.totalPages > 10) {
       this.pages = [1, 2, 3, this.totalPages];
     } else {
       this.pages = Array(this.totalPages)

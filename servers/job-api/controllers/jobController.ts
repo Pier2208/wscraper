@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import mongoose from 'mongoose';
+import { stringify } from 'csv-stringify';
 import { Job } from '../models/job.model';
 
 interface Url {
@@ -81,6 +82,19 @@ export default {
       }
     } catch (err) {
       next(err);
+    }
+  },
+
+  downloadFile: async (req: Request, res: Response, next: NextFunction) => {
+    // get jobID
+    const id = new mongoose.Types.ObjectId(req.params.jobId); // string to ObjectId
+    // get selected fields
+    let fields = req.body.formData.join(' urls.');
+    // fetch the job and the selected fields
+    const job = await Job.findById(id, `urls.${fields}`);
+
+    if (job) {
+      return res.status(200).json(job.urls);
     }
   }
 };

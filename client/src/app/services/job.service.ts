@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
+import { ngxCsv } from 'ngx-csv/ngx-csv';
 import { IJobs, IJob } from '../models/job';
 
 interface IJobForm {
@@ -63,5 +64,23 @@ export class JobService {
     return this.http.get<IJob>(
       `${this.jobApi}/jobs/${jobId}/urls${queryParams}`
     );
+  }
+
+  downloadFile(jobId: string, format: string, formData: any) {
+    const options = { 
+      fieldSeparator: ',',
+      quoteStrings: '"',
+      decimalseparator: '.',
+      useBom: true,
+      headers: formData
+    };
+
+    this.http
+      .post<any>(`${this.jobApi}/jobs/${jobId}/download`, {
+        formData,
+      })
+      .subscribe((data) => {
+        if (format === 'csv') new ngxCsv(data, jobId, options);
+      });
   }
 }
