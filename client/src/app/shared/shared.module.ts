@@ -10,6 +10,7 @@ import { PanelComponent } from './panel/panel.component';
 import { ModalComponent } from './modal/modal.component';
 import { ModalService } from '../services/modal.service';
 import { AppRoutingModule } from '../app-routing.module';
+import { InfiniteScrollComponent } from './infinite-scroll/infinite-scroll.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { AppRoutingModule } from '../app-routing.module';
     LoaderComponent,
     PaginatorComponent,
     PanelComponent,
-    ModalComponent
+    ModalComponent,
+    InfiniteScrollComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +35,8 @@ import { AppRoutingModule } from '../app-routing.module';
     LoaderComponent,
     PaginatorComponent,
     PanelComponent,
-    ModalComponent
+    ModalComponent,
+    InfiniteScrollComponent
   ],
   providers: [ModalService]
 })

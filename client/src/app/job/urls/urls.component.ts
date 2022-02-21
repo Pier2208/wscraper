@@ -11,6 +11,10 @@ import { IJob } from 'src/app/models/job';
 })
 export class UrlsComponent implements OnInit {
   currentJob: IJob;
+  urlsPerPage: number = 5;
+  page: number = 0;
+  scrolled = 10;
+  loading = false;
 
   constructor(
     private job: JobService,
@@ -20,15 +24,24 @@ export class UrlsComponent implements OnInit {
 
   ngOnInit(): void {
     this.job
-      .getCurrentJob(this.route.snapshot.params['id'])
+      .getCurrentJobUrls(this.route.snapshot.params['id'], this.scrolled)
       .subscribe((data) => {
         this.currentJob = data;
-        console.log('currentJob', data);
       });
   }
 
   openModal() {
     this.modal.toggleModal();
-    console.log('click')
+  }
+
+  onScroll() {
+    this.loading = true;
+    this.scrolled = this.scrolled + 10;
+    this.job
+      .getCurrentJobUrls(this.route.snapshot.params['id'], this.scrolled)
+      .subscribe((data) => {
+        this.currentJob = data;
+      });
+    this.loading = false;
   }
 }

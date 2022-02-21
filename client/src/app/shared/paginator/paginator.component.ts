@@ -11,6 +11,7 @@ export class PaginatorComponent implements OnInit {
   @Input() totalItems: number;
   totalPages: number;
   pages: number[];
+  steps: number[];
   itemsPerPage: number;
   currentPage: number;
 

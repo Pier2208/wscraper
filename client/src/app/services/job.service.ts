@@ -24,7 +24,7 @@ export class JobService {
   getJobUpdateEvent() {
     return this.updatedJobs.asObservable();
   }
-  
+
   getJobs(currentPage: number, jobsPerPage: number) {
     const queryParams = `?page=${currentPage}&size=${jobsPerPage}`;
     this.http
@@ -58,7 +58,10 @@ export class JobService {
       });
   }
 
-  getCurrentJob(jobId: string) {
-    return this.http.get<IJob>(`${this.jobApi}/jobs/${jobId}/urls`);
+  getCurrentJobUrls(jobId: string, scrolled: number) {
+    const queryParams = `?scrolled=${scrolled}`;
+    return this.http.get<IJob>(
+      `${this.jobApi}/jobs/${jobId}/urls${queryParams}`
+    );
   }
 }
