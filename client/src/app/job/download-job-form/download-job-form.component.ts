@@ -18,11 +18,12 @@ export class DownloadJobFormComponent implements OnInit {
   downloadJobForm = this.fb.group({
     fields: new FormArray([]),
   });
+  submitting = false;
 
   formFields = [
-    { name: 'url', checked: true },
-    { name: 'responseTime', checked: true },
-    { name: 'statusCode', checked: true },
+    { name: 'url', checked: false },
+    { name: 'responseTime', checked: false },
+    { name: 'statusCode', checked: false},
   ];
 
   constructor(
@@ -46,16 +47,19 @@ export class DownloadJobFormComponent implements OnInit {
   }
 
   onSubmit(format: string) {
+    this.submitting = true;
     const selected = this.downloadJobForm.value.fields
       .map((checked: any, i: number) => {
         return checked ? this.formFields[i].name : null;
       })
       .filter((v: any) => v !== null);
     const jobId = this.modal.getModalId();
-    
-    this.downloadJobForm.reset();
-    this.modal.toggleModal();
 
-    this.job.downloadFile(jobId, format, selected)
+    this.job.downloadFile(jobId, format, selected);
+
+    this.modal.toggleModal();
+    this.downloadJobForm.reset();
+
+    this.submitting = false;
   }
 }

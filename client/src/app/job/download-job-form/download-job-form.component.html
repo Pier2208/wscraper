@@ -1,5 +1,5 @@
 <form [formGroup]="downloadJobForm">
-  <h2>Sélectionner les champs inclure:</h2>
+  <h2>Sélectionner les champs à inclure:</h2>
   <label formArrayName="fields" *ngFor="let field of formFieldsArray.controls; let i = index">
     <input type="checkbox" [formControlName]="i">
     {{formFields[i].name}}
@@ -14,5 +14,6 @@
     <app-button [type]="'button'" (click)="onSubmit('json')" [disabled]="downloadJobForm.invalid">
       JSON
     </app-button>
+    <app-loader *ngIf="submitting"></app-loader>
   </div>
 </form>

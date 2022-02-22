@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { ngxCsv } from 'ngx-csv/ngx-csv';
+import { saveAs } from 'file-saver';
 import { IJobs, IJob } from '../models/job';
 
 interface IJobForm {
@@ -42,7 +43,7 @@ export class JobService {
       .post<IJob>(`${this.jobApi}/jobs`, job)
       .subscribe((data) => {
         this.jobs = [data, ...this.jobs];
-        ++this.totalJobs;
+        this.totalJobs++;
         this.updatedJobs.next({ count: this.totalJobs, jobs: this.jobs });
       });
   }
@@ -67,20 +68,32 @@ export class JobService {
   }
 
   downloadFile(jobId: string, format: string, formData: any) {
-    const options = { 
-      fieldSeparator: ',',
-      quoteStrings: '"',
-      decimalseparator: '.',
-      useBom: true,
-      headers: formData
-    };
+    if (format === 'csv') {
+      const options = {
+        fieldSeparator: ',',
+        quoteStrings: '"',
+        decimalseparator: '.',
+        useBom: true,
+        headers: formData,
+      };
 
-    this.http
-      .post<any>(`${this.jobApi}/jobs/${jobId}/download`, {
-        formData,
-      })
-      .subscribe((data) => {
-        if (format === 'csv') new ngxCsv(data, jobId, options);
-      });
+      this.http
+        .post<any>(`${this.jobApi}/jobs/${jobId}/download`, { formData })
+        .subscribe((data) => {
+          new ngxCsv(data, jobId, options);
+        });
+    }
+
+    if (format === 'json') {
+      this.http
+        .post<any>(
+          `${this.jobApi}/jobs/${jobId}/download`,
+          { formData },
+          { responseType: 'blob' as 'json' }
+        )
+        .subscribe((blob) => {
+          saveAs(blob, 'hello');
+        });
+    }
   }
 }
