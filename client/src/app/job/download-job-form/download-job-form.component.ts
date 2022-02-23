@@ -15,22 +15,22 @@ interface IJobForm {
   styleUrls: ['./download-job-form.component.scss'],
 })
 export class DownloadJobFormComponent implements OnInit {
+  constructor(
+    private fb: FormBuilder,
+    private job: JobService,
+    private modal: ModalService
+  ) {}
+
   downloadJobForm = this.fb.group({
-    fields: new FormArray([]),
+    fields: new FormArray([])
   });
   submitting = false;
 
   formFields = [
     { name: 'url', checked: false },
     { name: 'responseTime', checked: false },
-    { name: 'statusCode', checked: false},
+    { name: 'statusCode', checked: false },
   ];
-
-  constructor(
-    private fb: FormBuilder,
-    private job: JobService,
-    private modal: ModalService
-  ) {}
 
   ngOnInit(): void {
     this.addCheckboxes();
@@ -44,6 +44,10 @@ export class DownloadJobFormComponent implements OnInit {
 
   get formFieldsArray() {
     return this.downloadJobForm.controls['fields'] as FormArray;
+  }
+
+  changeStatus(event: any) {
+    this.downloadJobForm.controls['status'].setValue(event.target.value)
   }
 
   onSubmit(format: string) {

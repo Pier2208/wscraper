@@ -18,7 +18,8 @@ export class PaginatorComponent implements OnInit {
   constructor(private Job: JobService, private pagination: PaginationService) {}
 
   ngOnInit(): void {
-    const { itemsPerPage, currentPage } = this.pagination.getCurrentPagination();
+    const { itemsPerPage, currentPage } =
+      this.pagination.getCurrentPagination();
     this.currentPage = currentPage;
     this.itemsPerPage = itemsPerPage;
     this.pageNumber();
@@ -31,7 +32,9 @@ export class PaginatorComponent implements OnInit {
 
   createButtons() {
     if (this.totalPages > 10) {
-      this.pages = [1, 2, 3, this.totalPages];
+      if (this.currentPage < 4) {
+        this.pages = [1, 2, 3, 4, this.totalPages];
+      }
     } else {
       this.pages = Array(this.totalPages)
         .fill(null)
@@ -45,12 +48,31 @@ export class PaginatorComponent implements OnInit {
       this.Job.getJobs(this.currentPage, this.itemsPerPage);
       this.pagination.updatePagination(this.currentPage, this.itemsPerPage);
     }
+
+    if (this.currentPage > 4 && this.currentPage < this.totalPages) {
+      this.pages = [
+        this.currentPage - 3,
+        this.currentPage - 2,
+        this.currentPage - 1,
+        this.currentPage,
+        this.totalPages,
+      ];
+    } else if (this.currentPage > 4 && this.currentPage == this.totalPages) {
+      this.pages = [
+        this.currentPage - 3,
+        this.currentPage - 2,
+        this.totalPages - 1,
+        this.totalPages,
+      ];
+    }
   }
 
   previousPage() {
-    if (this.currentPage > 1) this.currentPage--;
-    this.Job.getJobs(this.currentPage, this.itemsPerPage);
-    this.pagination.updatePagination(this.currentPage, this.itemsPerPage);
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.Job.getJobs(this.currentPage, this.itemsPerPage);
+      this.pagination.updatePagination(this.currentPage, this.itemsPerPage);
+    }
   }
 
   getCurrentPage(page: number) {

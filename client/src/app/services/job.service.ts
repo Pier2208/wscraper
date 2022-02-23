@@ -92,7 +92,7 @@ export class JobService {
           { responseType: 'blob' as 'json' }
         )
         .subscribe((blob) => {
-          saveAs(blob, 'hello');
+          saveAs(blob, jobId);
         });
     }
   }
