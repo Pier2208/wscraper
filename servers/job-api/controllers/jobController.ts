@@ -91,7 +91,7 @@ export default {
     // get selected fields
     let fields = req.body.formData.join(' urls.');
     // fetch the job and the selected fields
-    const job = await Job.findById(id, `urls.${fields}`);
+    const job = await Job.findById(id, `urls.${fields}`)
 
     if (job) {
       return res.status(200).json(job.urls);
