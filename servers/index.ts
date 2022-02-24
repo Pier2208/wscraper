@@ -10,7 +10,7 @@ const app = express();
 //middlewares
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '../..', 'client/dist/client')));
+app.use(express.static(path.join(__dirname, '..', 'dist')));
 
 // CORS
 app.use((req: Request, res: Response, next: NextFunction) => {
@@ -25,7 +25,7 @@ app.use('/api/jobs', jobRouter);
 app.use((err: ErrorRequestHandler, req: Request, res: Response, next: NextFunction) => res.status(400).json(err));
 
 app.get('/', (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, '../..', 'client/dist/client/index.html'));
+  res.sendFile(path.join(__dirname, '..', 'dist/index.html'));
 });
 
 app.listen(3001, async () => {

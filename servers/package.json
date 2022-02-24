@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "start:build": "tsc -w",
+    "prod": "tsc & node build/index.js",
+    "start:build": "tsc",
     "start:run": "nodemon build/index.js",
     "start": "concurrently npm:start:*"
   },
