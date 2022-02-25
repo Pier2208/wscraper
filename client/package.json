@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "build-prod": "npm install && rm -rf ../deploy/client && ng build --output-path=../deploy/client && mv node_modules ../deploy/client/node_modules"
   },
   "private": true,
   "dependencies": {

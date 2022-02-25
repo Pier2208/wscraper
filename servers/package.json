@@ -7,7 +7,8 @@
     "prod": "tsc & node build/index.js",
     "start:build": "tsc",
     "start:run": "nodemon build/index.js",
-    "start": "concurrently npm:start:*"
+    "start": "concurrently npm:start:*",
+    "build-prod": "npm install && rm -rf ../deploy/server && tsc --outDir ../deploy/server && mv node_modules ../deploy/server/node_modules"
   },
   "keywords": [],
   "author": "",

@@ -1,0 +1,1 @@
+cd ./client && npm run build-prod && cd ../server && npm run build-prod

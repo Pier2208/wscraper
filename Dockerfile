@@ -1,21 +1,10 @@
-#Step 1
-FROM node:14 as client-build
-WORKDIR /app/client
-COPY /client/package*.json .
-RUN npm install
-COPY /client .
-RUN npm run build
-
-# Step 2
-FROM node:14 as server-build
-WORKDIR /app
-COPY --from=client-build /app/client/dist/client ./dist
-COPY /servers/package*.json .
-RUN npm install
-COPY /servers .
-RUN npm run start:build
-
+FROM node:14.16.1
 EXPOSE 3001
+ENV NODE_ENV=dev
 
-CMD ["node", "build/index.js"]
+RUN npm i -g pm2
+RUN mkdir -p /opt/app
+WORKDIR /opt/app
+COPY ./deploy /opt/app
 
+CMD ["bash", "-c", "pm2 start server/index.js && pm2 logs"]

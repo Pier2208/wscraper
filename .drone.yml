@@ -1,0 +1,114 @@
+pipeline:
+  cache_restore:
+    image: ypcloud/cache
+    restore: true
+    mount: [ node_modules ]
+
+  ## Builds the package
+  build:
+    image: node:14.16.0-buster-slim
+    commands:
+      - npm config set registry https://npm.ypcloud.io/
+      - bash deploy.sh
+    when:
+      branch: [master, develop, release/*, feature/*]
+
+  ## Runs the test (lint, test, coverage)
+  test:
+    image: node:14.16.0-buster-slim
+    commands:
+      - npm test
+    when:
+      branch: [master, develop, release/*, feature/*]
+
+  cache_build:
+    image: ypcloud/cache
+    rebuild: true
+    mount: [ node_modules ]
+
+  ## This will publish docker image in registery and tag it with "latest", build number and prod
+  docker_prod_dev:
+    repo: "gcr.io/ypcloud-io/${DRONE_REPO,,}"
+    image: plugins/gcr
+    secrets: [ google_credentials ]
+    dockerfile: Dockerfile
+    tag:
+      - "${DRONE_BUILD_NUMBER}"
+      - "${DRONE_BRANCH}"
+    when:
+      branch: [master, develop]
+
+  ## This will publish docker image in registery and tag it with "latest", build number and qa
+  docker_qa:
+    repo: "gcr.io/ypcloud-io/${DRONE_REPO,,}"
+    image: plugins/gcr
+    secrets: [ google_credentials ]
+    dockerfile: Dockerfile
+    tag:
+      - "${DRONE_BUILD_NUMBER}"
+      - "qa"
+    when:
+      branch: [release/*]
+
+  ## Deploy to YPCloud
+  ## More information about this plugin: https://itwiki.ypg.com/display/BEA/Drone-K8S+plugin
+  ## Contact YPCloud support for help
+  deploy_prod:
+    image: gcr.io/ypcloud-io/ypcloud/yphelm:eks
+    kong: false
+    namespace: "${DRONE_REPO_OWNER,,}${DRONE_REPO_NAME}"
+    deployment:
+      image: "gcr.io/ypcloud-io/${DRONE_REPO_OWNER,,}/${DRONE_REPO_NAME}"
+      labels: ["${DRONE_REPO_NAME}", "${DRONE_REPO_OWNER,,}"]
+      port: 3333
+      version: "${DRONE_BUILD_NUMBER}"
+      healthchecks:
+        http: /health
+      env:
+      - "NODE_ENV=prod"
+      - "APM_ACTIVE=false"
+    ingress:
+      prefix: ypcloud.io
+      class: cld-internal
+    when:
+      branch: [master]
+
+  deploy_dev:
+    image: gcr.io/ypcloud-io/ypcloud/yphelm:eks
+    kong: false
+    namespace: "${DRONE_REPO_OWNER,,}${DRONE_REPO_NAME}"
+    deployment:
+      image: "gcr.io/ypcloud-io/${DRONE_REPO_OWNER,,}/${DRONE_REPO_NAME}"
+      labels: ["${DRONE_REPO_NAME}", "${DRONE_REPO_OWNER,,}"]
+      port: 3333
+      version: "${DRONE_BUILD_NUMBER}"
+      healthchecks:
+        http: /health
+      env:
+      - "NODE_ENV=dev"
+      - "APM_ACTIVE=false"
+    ingress:
+      prefix: ypcloud.io
+      class: cld-internal
+    when:
+      branch: [develop]
+
+  deploy_qa:
+    image: gcr.io/ypcloud-io/ypcloud/yphelm:eks
+    kong: false
+    namespace: "${DRONE_REPO_OWNER,,}${DRONE_REPO_NAME}"
+    deployment:
+      image: "gcr.io/ypcloud-io/${DRONE_REPO_OWNER,,}/${DRONE_REPO_NAME}"
+      labels: ["${DRONE_REPO_NAME}", "${DRONE_REPO_OWNER,,}"]
+      port: 3333
+      version: "${DRONE_BUILD_NUMBER}"
+      healthchecks:
+        http: /health
+      env:
+      - "NODE_ENV=qa"
+      - "APM_ACTIVE=false"
+    ingress:
+      prefix: ypcloud.io
+      class: cld-internal
+    when:
+      branch: [release/*]

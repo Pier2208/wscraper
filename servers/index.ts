@@ -10,7 +10,7 @@ const app = express();
 //middlewares
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '..', 'dist')));
+app.use('/', express.static(path.join(__dirname, '..', 'client')));
 
 // CORS
 app.use((req: Request, res: Response, next: NextFunction) => {
@@ -26,6 +26,11 @@ app.use((err: ErrorRequestHandler, req: Request, res: Response, next: NextFuncti
 
 app.get('/', (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, '..', 'dist/index.html'));
+});
+
+//For ypcloud hearbeat
+app.get('/health', async (req, res) => {
+  res.send(true);
 });
 
 app.listen(3001, async () => {
