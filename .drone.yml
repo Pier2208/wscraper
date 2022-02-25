@@ -17,7 +17,8 @@ pipeline:
   test:
     image: node:14.16.0-buster-slim
     commands:
-      - npm test
+      - cd client && npm test
+      - cd servers && npm test
     when:
       branch: [master, develop, release/*, feature/*]
 
