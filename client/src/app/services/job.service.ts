@@ -19,7 +19,7 @@ export class JobService {
 
   private totalJobs: number;
 
-  private jobApi = 'http://localhost:3333/api';
+  private jobApi = '/api';
 
   constructor(private http: HttpClient) {}
 
