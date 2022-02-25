@@ -33,8 +33,8 @@ app.get('/health', async (req, res) => {
   res.send(true);
 });
 
-app.listen(3001, async () => {
-  console.log('Server is running on port 3001');
+app.listen(3333, async () => {
+  console.log('Server is running on port 3333');
   // start mongoDB
   db.connect();
   // start the url validator in the background

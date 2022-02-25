@@ -1,5 +1,5 @@
 FROM node:14.16.1
-EXPOSE 3001
+EXPOSE 3333
 ENV NODE_ENV=dev
 
 RUN npm i -g pm2
