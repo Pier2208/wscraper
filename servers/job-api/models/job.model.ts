@@ -12,6 +12,7 @@ export interface IJob extends Document {
   status: string;
   urls: Url[];
   count: Number;
+  urlsToDo: Number;
 }
 
 const JobSchema: Schema<IJob> = new Schema(
@@ -30,7 +31,8 @@ const JobSchema: Schema<IJob> = new Schema(
     urls: {
       type: [{ url: String, status: { type: String, default: 'QUEUED' }, statusCode: Number, responseTime: Number }],
       required: true
-    }
+    },
+    urlsToDo: Number
   },
   { timestamps: true }
 );

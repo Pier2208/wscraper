@@ -32,25 +32,25 @@ export class CreateJobFormComponent {
     this.router.navigateByUrl('/');
   }
 
-  onFileChange($event: any) {
-    this.readFile($event.target);
+  onFileChange($event: Event) {
+    this.readFile($event.target as HTMLInputElement);
   }
 
-  readFile(inputValue: any) {
-    const file = inputValue.files[0];
+  readFile(input: HTMLInputElement) {
+    const files: FileList | null = input.files;
     const reader = new FileReader();
 
-    reader.onloadstart = (e) => {
-      this.loading = true
-    }
+    reader.onloadstart = (e: Event) => {
+      this.loading = true;
+    };
 
-    reader.onloadend = (e) => {
+    reader.onloadend = (e: Event) => {
       this.loading = false;
-      if(reader.result) {
-        this.urls.setValue(reader.result.toString())
+      if (reader.result) {
+        this.urls.setValue(reader.result.toString());
       }
     };
 
-    reader.readAsText(file)
+    if (files) reader.readAsText(files[0]);
   }
 }
