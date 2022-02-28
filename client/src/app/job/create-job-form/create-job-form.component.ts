@@ -16,6 +16,7 @@ interface IJobForm {
 export class CreateJobFormComponent {
   constructor(private job: JobService, private router: Router) {}
 
+  loading = false;
   name = new FormControl('', [Validators.required]);
   urls = new FormControl('', [Validators.required]);
 
@@ -39,8 +40,12 @@ export class CreateJobFormComponent {
     const file = inputValue.files[0];
     const reader = new FileReader();
 
+    reader.onloadstart = (e) => {
+      this.loading = true
+    }
+
     reader.onloadend = (e) => {
-      console.log(reader.result);
+      this.loading = false;
       if(reader.result) {
         this.urls.setValue(reader.result.toString())
       }
