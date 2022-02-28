@@ -18,7 +18,6 @@ export class InputComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('coco', this.control )
   }
 
 }

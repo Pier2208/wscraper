@@ -11,6 +11,7 @@ import { IJobs, IJob } from '../models/job';
 })
 export class HomeComponent implements OnInit, OnDestroy {
   private jobsSubscription?: Subscription;
+  private intervalSubscription?: number;
   jobs: IJob[];
   totalJobs: number;
   loadingJobs: boolean = false;
@@ -36,6 +37,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.jobsSubscription?.unsubscribe();
+    clearInterval(this.intervalSubscription)
   }
 
   /**
@@ -45,6 +47,6 @@ export class HomeComponent implements OnInit, OnDestroy {
    */
   jobsListener(func: Function, interval: number) {
     func();
-    return setInterval(func, interval);
+    this.intervalSubscription = setInterval(func, interval);
   }
 }

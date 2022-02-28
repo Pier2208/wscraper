@@ -6,5 +6,6 @@
     label="Urls (séparées par des virgules):"
     placeholder="https://www.example1.com, http://www.example2.ca"
   ></app-input>
+  <input type="file" (change)="onFileChange($event)">
   <app-button [disabled]="jobForm.invalid"> CRÉER ET LANCER LE JOB </app-button>
 </form>
