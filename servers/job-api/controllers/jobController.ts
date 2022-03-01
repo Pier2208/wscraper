@@ -16,17 +16,22 @@ export default {
   createJob: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { name, urls } = req.body;
+      const start = new Date().valueOf();
       const newUrls = urls.split(',').reduce((acc: Url[], url: string) => {
         acc.push({ url });
         return acc;
       }, []);
 
+      const end = new Date().valueOf();
+      const diff = end - start;
+      console.log('time elapsed',diff)
       // save new job in the database
       const job = await new Job({ name, count: newUrls.length, urlsToDo: newUrls.length, urls: newUrls }).save();
-
-      res.status(200).json(job);
+      const newJob = { _id: job._id, name: job.name, status: job.status, count: job.count, createdAt: job.createdAt, updatedAt: job.updatedAt };
+      console.log('new job', newJob)
+      if (job) res.status(200).json(newJob);
     } catch (err) {
-      next(err); 
+      next(err);
     }
   },
   /**
@@ -53,7 +58,7 @@ export default {
         const page = +req.query.page;
         const size = +req.query.size;
 
-        const jobs = await Job.find({}, '_id name status count createdAt updatedAt')
+        const jobs = await Job.find({}, '_id name status createdAt updatedAt')
           .sort({ createdAt: -1 })
           .skip(size * (page - 1))
           .limit(size);
@@ -91,7 +96,7 @@ export default {
     // get selected fields
     let fields = req.body.formData.join(' urls.');
     // fetch the job and the selected fields
-    const job = await Job.findById(id, `urls.${fields}`)
+    const job = await Job.findById(id, `urls.${fields}`);
 
     if (job) {
       return res.status(200).json(job.urls);
