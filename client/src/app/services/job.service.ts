@@ -39,7 +39,7 @@ export class JobService {
   }
 
   createJob(job: IJobForm) {
-    return this.http
+    this.http
       .post<IJob>(`${this.jobApi}/jobs`, job)
       .subscribe((data) => {
         this.jobs = [data, ...this.jobs];
