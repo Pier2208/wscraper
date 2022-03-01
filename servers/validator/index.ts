@@ -9,7 +9,7 @@ export default () => {
   async function fetchJobs() {
     // METTRE LES JOBS QUEUED --> IN PROGRESS
     const jobs = await Job.updateMany({ status: 'QUEUED' }, { $set: { status: 'IN PROGRESS' } });
-    if (!jobs.modifiedCount) return;
+    // if (!jobs.modifiedCount) return;
 
     // SI LE JOB EST IN PROGRESS, PRENDRE CHAQUE URL, METTRE A IN PROGRESS ET VALIDER
     const filter = { status: 'IN PROGRESS' };
@@ -32,6 +32,7 @@ export default () => {
           const response = await checkUrl(url.url);
 
           if (response) {
+            console.log(response)
             // METTRE LE SCRAP DE L'URL À DONE + retirer 1 au compte des urls à faire ET AJOUTER VALIDAION DATA
             await Job.updateOne(
               { 'urls._id': url._id },

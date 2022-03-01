@@ -13,6 +13,8 @@ export interface IJob extends Document {
   urls: Url[];
   count: Number;
   urlsToDo: Number;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 const JobSchema: Schema<IJob> = new Schema(

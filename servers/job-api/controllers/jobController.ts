@@ -16,19 +16,16 @@ export default {
   createJob: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { name, urls } = req.body;
-      const start = new Date().valueOf();
+
       const newUrls = urls.split(',').reduce((acc: Url[], url: string) => {
         acc.push({ url });
         return acc;
       }, []);
 
-      const end = new Date().valueOf();
-      const diff = end - start;
-      console.log('time elapsed',diff)
       // save new job in the database
       const job = await new Job({ name, count: newUrls.length, urlsToDo: newUrls.length, urls: newUrls }).save();
       const newJob = { _id: job._id, name: job.name, status: job.status, count: job.count, createdAt: job.createdAt, updatedAt: job.updatedAt };
-      console.log('new job', newJob)
+      
       if (job) res.status(200).json(newJob);
     } catch (err) {
       next(err);

@@ -33,5 +33,5 @@ app.listen(3001, async () => {
   // start mongoDB
   db.connect();
   // start the url validator in the background
-  validator();
+  //validator();
 });
