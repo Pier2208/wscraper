@@ -1,7 +1,6 @@
 import express, { ErrorRequestHandler, NextFunction, Request, Response } from 'express';
 import jobRouter from './job-api/routes/jobRoutes';
 import db from './db/mongoose';
-import validator from './validator/index';
 import path from 'path';
 
 // Express app
@@ -32,6 +31,4 @@ app.listen(3001, async () => {
   console.log('Server is running on port 3001');
   // start mongoDB
   db.connect();
-  // start the url validator in the background
-  validator();
 });
