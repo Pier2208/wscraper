@@ -10,59 +10,64 @@ console.info('Stating validator');
 db.connect();
 
 async function fetchJobs() {
-  // METTRE LES JOBS QUEUED --> IN PROGRESS
-  const jobs = await Job.updateMany({ status: 'QUEUED' }, { $set: { status: 'IN PROGRESS' } });
-  if (!jobs.modifiedCount) return;
+  // Update toutes les jobs dont le status est 'QUEUED' à 'IN PROGRESS'
+  await Job.updateMany({ status: 'QUEUED' }, { $set: { status: 'IN PROGRESS' } });
 
-  // SI LE JOB EST IN PROGRESS, PRENDRE CHAQUE URL, METTRE A IN PROGRESS ET VALIDER
-  const filter = { status: 'IN PROGRESS' };
-  let inProgressJobs = await Job.aggregate([{ $match: filter }]);
+  // On récupére toutes les jobs dont le status est 'IN PROGRESS'
+  let inProgressJobs = await Job.aggregate([{ $match: { status: 'IN PROGRESS' } }]);
 
+  // Pour chaque job 'IN PROGRESS'....
   inProgressJobs.forEach(async job => {
-    job.urls.forEach(async (url: any) => {
-      if (url.status === 'QUEUED') {
-        // METTRE LE SCRAP DE L'URL A IN PROGRESS
-        await Job.updateOne(
-          { 'urls._id': url._id },
-          {
-            $set: {
-              'urls.$.status': 'IN PROGRESS'
-            }
-          }
-        );
-
-        // VALIDER L'URL
-        console.info('Validating ' + url.url);
-        const response = await checkUrl(url.url);
-
-        if (response) {
-          console.log(response);
-          // METTRE LE SCRAP DE L'URL À DONE + retirer 1 au compte des urls à faire ET AJOUTER VALIDAION DATA
+    console.log('job in progress', job);
+    // Si on a des urls qui restent à être validées...
+    if (job.urlsToDo > 0) {
+      // pour chaque url à valider, on vérifie que son status est 'QUEUED'
+      job.urls.forEach(async (url: any) => {
+        if (url.status === 'QUEUED') {
+          // et on update son status à 'IN PROGRESS'
           await Job.updateOne(
             { 'urls._id': url._id },
             {
               $set: {
-                'urls.$.status': 'DONE',
-                'urls.$.statusCode': response.statusCode,
-                'urls.$.responseTime': response.responseTime
+                'urls.$.status': 'IN PROGRESS'
               }
             }
           );
 
-          await Job.updateOne(
-            { _id: job._id },
-            {
-              $inc: {
-                urlsToDo: -1
+          // puis on lance la validation de l'url
+          console.info('Validating ' + url.url);
+          const response = await checkUrl(url.url);
+
+          if (response) {
+            console.log('response', response);
+            // quand l'url est validée, on change son status à 'DONE' et on ajoute les meta données (statusCode et responseTime)
+            await Job.updateOne(
+              { 'urls._id': url._id },
+              {
+                $set: {
+                  'urls.$.status': 'DONE',
+                  'urls.$.statusCode': response.statusCode,
+                  'urls.$.responseTime': response.responseTime
+                }
               }
-            }
-          );
+            );
+
+            // on décrémente le total des urls qui restent à valider de -1
+            await Job.updateOne(
+              { _id: job._id },
+              {
+                $inc: {
+                  urlsToDo: -1
+                }
+              }
+            );
+          }
         }
-      }
-    });
-
-    // METTRE LA JOB A COMPLETE
-    if (job.urlsToDo.length === 0) await Job.updateOne({ _id: job._id }, { $set: { status: 'DONE' } });
+      });
+    } else {
+      // si la propriété job.urlsToDo === 0, alors toutes les urls sont validées et la job peut être mise à 'DONE'
+      await Job.updateOne({ _id: job._id }, { $set: { status: 'DONE' } });
+    }
   });
 }
 
@@ -81,7 +86,7 @@ async function checkUrl(url: string) {
       statusCode: urlResponse.status,
       responseTime: diff
     };
-    console.log(JSON.stringify(response));
+
     return response;
   } catch (err: any) {
     const endTime = new Date().valueOf();

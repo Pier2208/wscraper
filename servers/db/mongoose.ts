@@ -10,6 +10,7 @@ class Mongoose {
       //   .connect(`${process.env.MONGO_URI}`)
       .connect(this.uri, {
         socketTimeoutMS: 150000,
+        connectTimeoutMS: 250000,
         keepAlive: true,
         keepAliveInitialDelay: 300000
       })

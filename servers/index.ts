@@ -1,4 +1,5 @@
 import express, { ErrorRequestHandler, NextFunction, Request, Response } from 'express';
+import bodyParser from 'body-parser'
 import jobRouter from './job-api/routes/jobRoutes';
 import db from './db/mongoose';
 import path from 'path';
@@ -7,8 +8,10 @@ import path from 'path';
 const app = express();
 
 //middlewares
-app.use(express.urlencoded({ limit: '200mb', extended: false }));
-app.use(express.json({limit: '200mb'}));
+//app.use(express.urlencoded({ limit: '200mb', extended: true }));
+//app.use(express.json({limit: '200mb'}));
+app.use(bodyParser.json({limit: '200mb', type:'application/json'}));
+app.use(bodyParser.urlencoded({limit: '200mb', extended: true, parameterLimit:50000 }));
 app.use(express.static(path.join(__dirname, '..', 'dist')));
 
 // CORS
