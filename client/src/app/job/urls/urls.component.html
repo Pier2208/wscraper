@@ -6,6 +6,7 @@
 <!-- TABLE DE VALIDATION DES URLS -->
 <ng-container *ngIf="currentJob">
   <header>
+    <app-loader *ngIf="!currentJob"></app-loader>
     <h1>{{ currentJob.name }}</h1>
     <div class="job__actions">
       <svg-icon

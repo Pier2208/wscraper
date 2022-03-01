@@ -21,8 +21,6 @@ export default {
         return acc;
       }, []);
 
-      console.log('new urls', newUrls)
-
       // save new job in the database
       const job = await new Job({ name, count: newUrls.length, urlsToDo: newUrls.length, urls: newUrls }).save();
 

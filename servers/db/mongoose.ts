@@ -3,10 +3,16 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 class Mongoose {
+  uri = 'mongodb+srv://webscrapper:Aristote35@cluster0.yej0x.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+
   async connect() {
     mongoose
       //   .connect(`${process.env.MONGO_URI}`)
-      .connect('mongodb+srv://webscrapper:Aristote35@cluster0.yej0x.mongodb.net/myFirstDatabase?retryWrites=true&w=majority')
+      .connect(this.uri, {
+        socketTimeoutMS: 150000,
+        keepAlive: true,
+        keepAliveInitialDelay: 300000
+      })
       .then(() => {
         console.log('Connected to Mongo DB');
       })

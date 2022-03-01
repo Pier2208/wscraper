@@ -8,7 +8,8 @@ import { Job } from '../job-api/models/job.model';
 export default () => {
   async function fetchJobs() {
     // METTRE LES JOBS QUEUED --> IN PROGRESS
-    await Job.updateMany({ status: 'QUEUED' }, { $set: { status: 'IN PROGRESS' } });
+    const jobs = await Job.updateMany({ status: 'QUEUED' }, { $set: { status: 'IN PROGRESS' } });
+    if (!jobs.modifiedCount) return;
 
     // SI LE JOB EST IN PROGRESS, PRENDRE CHAQUE URL, METTRE A IN PROGRESS ET VALIDER
     const filter = { status: 'IN PROGRESS' };
