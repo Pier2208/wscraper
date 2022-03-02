@@ -8,10 +8,10 @@ import path from 'path';
 const app = express();
 
 //middlewares
-//app.use(express.urlencoded({ limit: '200mb', extended: true }));
-//app.use(express.json({limit: '200mb'}));
-app.use(bodyParser.json({limit: '200mb', type:'application/json'}));
-app.use(bodyParser.urlencoded({limit: '200mb', extended: true, parameterLimit:50000 }));
+app.use(express.urlencoded({ limit: '200mb', extended: true }));
+app.use(express.json({limit: '200mb'}));
+//app.use(bodyParser.json({limit: '200mb', type:'application/json'}));
+//app.use(bodyParser.urlencoded({limit: '200mb', extended: true, parameterLimit:50000 }));
 app.use(express.static(path.join(__dirname, '..', 'dist')));
 
 // CORS

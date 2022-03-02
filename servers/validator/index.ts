@@ -1,4 +1,5 @@
 import fetch from 'node-fetch';
+import AbortError from 'node-fetch';
 import { Job } from '../job-api/models/job.model';
 import db from '../db/mongoose';
 
@@ -23,23 +24,25 @@ async function fetchJobs() {
     if (job.urlsToDo > 0) {
       // pour chaque url à valider, on vérifie que son status est 'QUEUED'
       job.urls.forEach(async (url: any) => {
-        if (url.status === 'QUEUED') {
-          // et on update son status à 'IN PROGRESS'
-          await Job.updateOne(
-            { 'urls._id': url._id },
-            {
-              $set: {
-                'urls.$.status': 'IN PROGRESS'
+        if (url.status !== 'DONE') {
+          if (url.status === 'QUEUED') {
+            // et on update son status à 'IN PROGRESS'
+            await Job.updateOne(
+              { 'urls._id': url._id },
+              {
+                $set: {
+                  'urls.$.status': 'IN PROGRESS'
+                }
               }
-            }
-          );
+            );
+          }
 
-          // puis on lance la validation de l'url
+          // on lance la validation de l'url
           console.info('Validating ' + url.url);
           const response = await checkUrl(url.url);
-          console.log('response', response);
 
           if (response) {
+            console.info('Response', response)
             // quand l'url est validée, on change son status à 'DONE' et on ajoute les meta données (statusCode et responseTime)
             await Job.updateOne(
               { 'urls._id': url._id },
@@ -76,15 +79,25 @@ setInterval(fetchJobs, 10000);
 async function checkUrl(url: string) {
   const startTime = new Date().valueOf();
 
-  try {
-    let urlResponse = await fetch(url, { redirect: 'manual' }); //TODO : setup a timeout
+  // AbortController was added in node v14.17.0 globally
+  const AbortController = globalThis.AbortController || (await import('abort-controller'));
 
-    if (urlResponse.status === 301 || urlResponse.status === 302) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => {
+    controller.abort();
+  }, 25000);
+
+  try {
+    let urlResponse = await fetch(url, {
+      redirect: 'manual',
+      signal: controller.signal
+    }); //TODO : setup a timeout
+
+    // gestion des redirects
+    if (urlResponse.status === 301 || urlResponse.status === 302 || urlResponse.status === 307) {
       const locationURL = new URL(urlResponse.url);
-      urlResponse = await fetch(locationURL, { redirect: 'manual' });
-      console.dir('redirection', urlResponse);
+      urlResponse = await fetch(locationURL, { redirect: 'manual', signal: controller.signal });
     }
-    console.log('response in checkUrl', urlResponse);
 
     const endTime = new Date().valueOf();
     const diff = endTime - startTime;
@@ -99,10 +112,16 @@ async function checkUrl(url: string) {
   } catch (err: any) {
     const endTime = new Date().valueOf();
     const diff = endTime - startTime;
+
+    if (err instanceof AbortError) {
+      console.log('request was aborted');
+    }
+
     err.url = url;
     err.responseTime = diff;
     err.statusCode = 404; //TODO use http response code
-    console.error(JSON.stringify(err));
     return err;
+  } finally {
+    clearTimeout(timeout);
   }
 }
