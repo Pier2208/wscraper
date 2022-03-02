@@ -37,9 +37,9 @@ async function fetchJobs() {
           // puis on lance la validation de l'url
           console.info('Validating ' + url.url);
           const response = await checkUrl(url.url);
+          console.log('response', response);
 
           if (response) {
-            console.log('response', response);
             // quand l'url est validée, on change son status à 'DONE' et on ajoute les meta données (statusCode et responseTime)
             await Job.updateOne(
               { 'urls._id': url._id },
@@ -77,7 +77,15 @@ async function checkUrl(url: string) {
   const startTime = new Date().valueOf();
 
   try {
-    const urlResponse = await fetch(url); //TODO : setup a timeout
+    let urlResponse = await fetch(url, { redirect: 'manual' }); //TODO : setup a timeout
+
+    if (urlResponse.status === 301 || urlResponse.status === 302) {
+      const locationURL = new URL(urlResponse.url);
+      urlResponse = await fetch(locationURL, { redirect: 'manual' });
+      console.dir('redirection', urlResponse);
+    }
+    console.log('response in checkUrl', urlResponse);
+
     const endTime = new Date().valueOf();
     const diff = endTime - startTime;
 
