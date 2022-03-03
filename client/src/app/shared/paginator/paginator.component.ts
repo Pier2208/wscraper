@@ -42,6 +42,18 @@ export class PaginatorComponent implements OnInit {
     }
   }
 
+  updateButtons() {
+    if (this.currentPage === 4 && this.currentPage < this.totalPages) {
+      this.pages = [1, 2, 3, this.currentPage, this.totalPages];
+    }
+    if (this.currentPage === 3 && this.currentPage < this.totalPages) {
+      this.pages = [1, 2, this.currentPage, 4, this.totalPages];
+    }
+    if (this.currentPage === 2 && this.currentPage < this.totalPages) {
+      this.pages = [1, this.currentPage, 3, 4, this.totalPages];
+    }
+  }
+
   nextPage() {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
@@ -51,17 +63,10 @@ export class PaginatorComponent implements OnInit {
 
     if (this.currentPage > 4 && this.currentPage < this.totalPages) {
       this.pages = [
-        this.currentPage - 3,
+        1,
         this.currentPage - 2,
         this.currentPage - 1,
         this.currentPage,
-        this.totalPages,
-      ];
-    } else if (this.currentPage > 4 && this.currentPage == this.totalPages) {
-      this.pages = [
-        this.currentPage - 3,
-        this.currentPage - 2,
-        this.totalPages - 1,
         this.totalPages,
       ];
     }
@@ -73,10 +78,23 @@ export class PaginatorComponent implements OnInit {
       this.Job.getJobs(this.currentPage, this.itemsPerPage);
       this.pagination.updatePagination(this.currentPage, this.itemsPerPage);
     }
+
+    this.updateButtons()
+
+    if (this.currentPage > 4 && this.currentPage < this.totalPages) {
+      this.pages = [
+        1,
+        this.currentPage - 2,
+        this.currentPage - 1,
+        this.currentPage,
+        this.totalPages,
+      ];
+    }
   }
 
   getCurrentPage(page: number) {
     this.currentPage = page;
+    this.updateButtons()
     this.Job.getJobs(page, this.itemsPerPage);
     this.pagination.updatePagination(page, this.itemsPerPage);
   }

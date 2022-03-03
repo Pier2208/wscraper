@@ -24,7 +24,6 @@
   }
 
   &__btn {
-    transition: background-color 200ms ease-in-out, color 250ms ease-in-out;
 
     &:hover {
       background-color: var(--color-secondary);

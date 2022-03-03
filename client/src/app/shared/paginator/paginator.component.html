@@ -17,10 +17,10 @@
       Previous
     </button>
     <ng-container *ngFor="let page of pages; let i = index">
-      <span *ngIf="totalPages > 10 && i === 4 && currentPage < totalPages - 1" class="paginator__spread"
+      <span *ngIf="totalPages > 10 && i === 1 && currentPage > 4" class="paginator__spread"
         >...</span
       >
-      <span *ngIf="totalPages > 10 && currentPage === totalPages - 1 && i === totalPages - 1" class="paginator__spread"
+      <span *ngIf="totalPages > 10 && i === 4 && currentPage < totalPages - 1" class="paginator__spread"
         >...</span
       >
       <button
