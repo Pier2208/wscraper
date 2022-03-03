@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { ngxCsv } from 'ngx-csv/ngx-csv';
 import { saveAs } from 'file-saver';
 import { IJobs, IJob } from '../models/job';
+import { Router } from '@angular/router';
 
 interface IJobForm {
   name: string;
@@ -21,7 +22,7 @@ export class JobService {
 
   private jobApi = 'http://localhost:3001/api';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   getJobUpdateEvent() {
     return this.updatedJobs.asObservable();
@@ -39,13 +40,12 @@ export class JobService {
   }
 
   createJob(job: IJobForm) {
-    this.http
-      .post<IJob>(`${this.jobApi}/jobs`, job)
-      .subscribe((data) => {
-        this.jobs = [data, ...this.jobs];
-        this.totalJobs++;
-        this.updatedJobs.next({ count: this.totalJobs, jobs: this.jobs });
-      });
+    this.http.post<IJob>(`${this.jobApi}/jobs`, job).subscribe((data) => {
+      this.jobs = [data, ...this.jobs];
+      this.totalJobs++;
+      this.updatedJobs.next({ count: this.totalJobs, jobs: this.jobs });
+      this.router.navigateByUrl('/');
+    });
   }
 
   deleteJob(jobId: string) {

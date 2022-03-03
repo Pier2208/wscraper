@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { JobService } from 'src/app/services/job.service';
 
 interface IJobForm {
@@ -13,8 +12,8 @@ interface IJobForm {
   templateUrl: './create-job-form.component.html',
   styleUrls: ['./create-job-form.component.scss'],
 })
-export class CreateJobFormComponent {
-  constructor(private job: JobService, private router: Router) {}
+export class CreateJobFormComponent implements OnDestroy {
+  constructor(private job: JobService) {}
 
   loading = false;
   name = new FormControl('', [Validators.required]);
@@ -29,7 +28,7 @@ export class CreateJobFormComponent {
     this.job.createJob(value);
     this.jobForm.reset();
     this.jobForm.markAsPristine();
-    this.router.navigateByUrl('/');
+    this.loading = true;
   }
 
   onFileChange($event: Event) {
@@ -52,5 +51,9 @@ export class CreateJobFormComponent {
     };
 
     if (files) reader.readAsText(files[0]);
+  }
+
+  ngOnDestroy(): void {
+    this.loading = false;
   }
 }
