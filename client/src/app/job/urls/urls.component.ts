@@ -13,7 +13,7 @@ export class UrlsComponent implements OnInit {
   currentJob: IJob;
   urlsPerPage: number = 5;
   page: number = 0;
-  scrolled = 10;
+  scrolled = 15;
   loading = false;
 
   constructor(
@@ -32,17 +32,21 @@ export class UrlsComponent implements OnInit {
 
   openModal(id: string) {
     this.modal.toggleModal();
-    this.modal.currentModalId(id)
+    this.modal.currentModalId(id);
   }
 
   onScroll() {
     this.loading = true;
-    this.scrolled = this.scrolled + 10;
+    this.scrolled = this.scrolled + 15;
     this.job
       .getCurrentJobUrls(this.route.snapshot.params['id'], this.scrolled)
       .subscribe((data) => {
-        this.currentJob = data;
+        this.currentJob = {
+          ...this.currentJob,
+          urls: [...this.currentJob.urls, ...data.urls],
+        };
       });
     this.loading = false;
+    console.log("scrolled", this.currentJob.urls)
   }
 }

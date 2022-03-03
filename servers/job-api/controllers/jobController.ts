@@ -25,7 +25,7 @@ export default {
       // save new job in the database
       const job = await new Job({ name, count: newUrls.length, urlsToDo: newUrls.length, urls: newUrls }).save();
       const newJob = { _id: job._id, name: job.name, status: job.status, count: job.count, createdAt: job.createdAt, updatedAt: job.updatedAt };
-      
+
       if (job) res.status(200).json(newJob);
     } catch (err) {
       next(err);
@@ -70,15 +70,18 @@ export default {
   },
 
   /**
-   * Récupérer toutes les urls d'un job
+   * Récupérer les urls d'un job (utilisé par l'infinite scrolling)
    */
   getUrlsByJobId: async (req: Request, res: Response, next: NextFunction) => {
+    const LIMIT = 15;
     try {
       if (req.query.scrolled) {
         const scrolled = +req.query.scrolled;
+        const start = scrolled > LIMIT ? scrolled : 0;
+        const end = start + LIMIT;
+
         const id = new mongoose.Types.ObjectId(req.params.jobId); // string to ObjectId
-        const job = await Job.findById(id, { urls: { $slice: [0, scrolled] } });
-        //const job = await Job.findById(id)
+        const job = await Job.findById(id, { urls: { $slice: [start, end] } });
 
         if (job) res.status(200).json(job);
       }
