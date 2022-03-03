@@ -45,6 +45,7 @@ export class PaginatorComponent implements OnInit {
   }
 
   updateButtons() {
+
     if (this.currentPage === 4 && this.currentPage < this.totalPages) {
       this.pages = [1, 2, 3, this.currentPage, this.totalPages];
     }
@@ -78,7 +79,6 @@ export class PaginatorComponent implements OnInit {
       this.Job.getJobs(this.currentPage, this.itemsPerPage);
       this.pagination.updatePagination(this.currentPage, this.itemsPerPage);
     }
-
     this.updateButtons()
   }
 
@@ -88,13 +88,12 @@ export class PaginatorComponent implements OnInit {
       this.Job.getJobs(this.currentPage, this.itemsPerPage);
       this.pagination.updatePagination(this.currentPage, this.itemsPerPage);
     }
-
     this.updateButtons()
   }
 
   getCurrentPage(page: number) {
     this.currentPage = page;
-    //this.updateButtons()
+    this.updateButtons()
     this.Job.getJobs(page, this.itemsPerPage);
     this.pagination.updatePagination(page, this.itemsPerPage);
   }

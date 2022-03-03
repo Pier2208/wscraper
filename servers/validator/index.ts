@@ -42,7 +42,7 @@ async function fetchJobs() {
           const response = await checkUrl(url.url);
 
           if (response) {
-            console.info('Response', response)
+            console.info('Response', response);
             // quand l'url est validée, on change son status à 'DONE' et on ajoute les meta données (statusCode et responseTime)
             await Job.updateOne(
               { 'urls._id': url._id },
@@ -108,8 +108,6 @@ async function checkUrl(url: string) {
       responseTime: diff
     };
 
-    console.log("URL RESPONSE OK", urlResponse.status)
-
     return response;
   } catch (err: any) {
     const endTime = new Date().valueOf();
@@ -119,11 +117,10 @@ async function checkUrl(url: string) {
       console.log('request was aborted');
     }
 
-    console.log("URL RESPONSE ERROR", err)
-
     err.url = url;
     err.responseTime = diff;
-    err.statusCode = 404; //TODO use http response code
+    err.statusCode = 404; // defaut: 404 (pas de status code retourné par node-fetch mais des code type 'ENOUTFOUND')
+    if (err.code === 'ECONNRESET') err.statusCode = 500;
     return err;
   } finally {
     clearTimeout(timeout);
