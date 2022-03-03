@@ -3,6 +3,7 @@
 
 <section class="jobs">
   <!-- ACCORDION-->
+  <app-loader *ngIf="loadingJobs"></app-loader>
   <ng-container *ngIf="jobs">
     <!-- <app-accordion> -->
       <app-panel *ngFor="let job of jobs" [data]="job"></app-panel>
