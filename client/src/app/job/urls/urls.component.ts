@@ -35,6 +35,10 @@ export class UrlsComponent implements OnInit {
     this.modal.currentModalId(id);
   }
 
+  openLink(link: string){
+    window.open(link)
+  }
+
   onScroll() {
     this.loading = true;
     this.scrolled = this.scrolled + 15;
@@ -47,6 +51,5 @@ export class UrlsComponent implements OnInit {
         };
       });
     this.loading = false;
-    console.log("scrolled", this.currentJob.urls)
   }
 }

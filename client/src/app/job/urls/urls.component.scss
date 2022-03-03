@@ -49,6 +49,11 @@ td {
   vertical-align: middle;
   text-align: left;
   word-break: break-all;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--black);
+  }
 }
 
 td.center {

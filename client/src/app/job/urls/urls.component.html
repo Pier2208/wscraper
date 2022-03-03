@@ -31,7 +31,7 @@
           success: url.statusCode && url.statusCode < 400
         }"
       >
-        <td>{{ url.url }}</td>
+        <td (click)="openLink(url.url)">{{ url.url }}</td>
         <td class="center">
           {{ url.responseTime && url.responseTime.toFixed() + "ms" }}
         </td>
