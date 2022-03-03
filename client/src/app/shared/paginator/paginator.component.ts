@@ -57,6 +57,9 @@ export class PaginatorComponent implements OnInit {
     if (this.currentPage === 1 && this.currentPage < this.totalPages) {
       this.pages = [1, 2, 3, 4, this.totalPages];
     }
+    if (this.currentPage === this.totalPages) {
+      this.pages = [1, this.currentPage - 3, this.currentPage - 2, this.currentPage - 1, this.currentPage];
+    }
 
     if (this.currentPage > 4 && this.currentPage < this.totalPages) {
       this.pages = [
@@ -91,7 +94,7 @@ export class PaginatorComponent implements OnInit {
 
   getCurrentPage(page: number) {
     this.currentPage = page;
-    this.updateButtons()
+    //this.updateButtons()
     this.Job.getJobs(page, this.itemsPerPage);
     this.pagination.updatePagination(page, this.itemsPerPage);
   }
