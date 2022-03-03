@@ -52,6 +52,9 @@ export class PaginatorComponent implements OnInit {
     if (this.currentPage === 2 && this.currentPage < this.totalPages) {
       this.pages = [1, this.currentPage, 3, 4, this.totalPages];
     }
+    if (this.currentPage === 1 && this.currentPage < this.totalPages) {
+      this.pages = [1, 2, 3, 4, this.totalPages];
+    }
   }
 
   nextPage() {
