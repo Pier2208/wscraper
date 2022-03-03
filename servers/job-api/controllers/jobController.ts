@@ -22,7 +22,7 @@ export default {
         return acc;
       }, []);
 
-      // save new job in the database
+      // save new job in the database (on ne renvoie pas les urls)
       const job = await new Job({ name, count: newUrls.length, urlsToDo: newUrls.length, urls: newUrls }).save();
       const newJob = { _id: job._id, name: job.name, status: job.status, count: job.count, createdAt: job.createdAt, updatedAt: job.updatedAt };
 

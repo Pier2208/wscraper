@@ -108,6 +108,8 @@ async function checkUrl(url: string) {
       responseTime: diff
     };
 
+    console.log("URL RESPONSE OK", urlResponse.status)
+
     return response;
   } catch (err: any) {
     const endTime = new Date().valueOf();
@@ -116,6 +118,8 @@ async function checkUrl(url: string) {
     if (err instanceof AbortError) {
       console.log('request was aborted');
     }
+
+    console.log("URL RESPONSE ERROR", err)
 
     err.url = url;
     err.responseTime = diff;
