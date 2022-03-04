@@ -24,7 +24,7 @@ async function fetchJobs() {
     if (job.urlsToDo > 0) {
       // pour chaque url à valider, on vérifie que son status est 'QUEUED'
       job.urls.forEach(async (url: any) => {
-        if (url.status !== 'DONE') {
+        if (url.status !== 'DONE' && url.status !== 'IN PROGRESS') {
           if (url.status === 'QUEUED') {
             // et on update son status à 'IN PROGRESS'
             await Job.updateOne(
@@ -82,6 +82,7 @@ async function checkUrl(url: string) {
   // AbortController was added in node v14.17.0 globally
   const AbortController = globalThis.AbortController || (await import('abort-controller'));
 
+  // timeout urls
   const controller = new AbortController();
   const timeout = setTimeout(() => {
     controller.abort();
